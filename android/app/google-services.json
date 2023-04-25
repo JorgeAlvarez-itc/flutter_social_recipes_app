@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "697330296645",
+    "project_id": "flutter-social-recipes-app",
+    "storage_bucket": "flutter-social-recipes-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697330296645:android:a018b60f998c4a4aaac02c",
+        "android_client_info": {
+          "package_name": "com.example.recetas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697330296645-lpkjpcdqu9kf9clc8bqpk7oprttn2lh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkjG2VjH3vos_-Evd7pbFqGC39u5XxbfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697330296645-lpkjpcdqu9kf9clc8bqpk7oprttn2lh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
