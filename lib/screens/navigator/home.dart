@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/home_controller.dart';
+import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/categories_widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -178,22 +179,7 @@ class HomePage extends GetView<HomeController> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 3,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  'https://images.pexels.com/photos/4146123/pexels-photo-4146123.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                                  width: 120,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text('Recipe ${index + 1}'),
-                              ],
-                            ),
-                          ),
-                        );
+                        return RecipeWidget();
                       },
                     ),
                   ),

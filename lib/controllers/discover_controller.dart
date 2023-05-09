@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
 class DiscoverController extends GetxController {
-  // Coloca aquí los estados que necesites para la página
+  RxString selectedMenuBarOption = "".obs;
+
+  void selectMenuBarOption(String option) {
+    selectedMenuBarOption.value = option;
+  }
 }
