@@ -1,12 +1,17 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/home_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/categories_widget.dart';
 
 class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final isEmailAccount = args['isEmailAccount'] ?? false;
+    final UserCredential userCredential = args['user'] as UserCredential;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +47,7 @@ class HomePage extends GetView<HomeController> {
                           ),
                         ),
                         Text(
-                          'Username',
+                          userCredential.user!.providerData[0].displayName.toString().split(' ')[0],
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,

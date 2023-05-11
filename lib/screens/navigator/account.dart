@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:recetas/widgets/awesomeDialog_widget.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final isEmailAccount = args['isEmailAccount'] ?? false;
+    final UserCredential userCredential = args['user'] as UserCredential;
+
+    Awesome awesome = Awesome();
     return Scaffold(
       body: Stack(
         children: [
@@ -36,12 +45,15 @@ class AccountScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
-                    'https://randomuser.me/api/portraits/women/65.jpg',
+                    userCredential.user!.providerData[0].photoURL != null
+                        ? userCredential.user!.providerData[0].photoURL
+                            .toString()
+                        : 'https://cadrre.org/wp-content/uploads/2018/04/social-hub-profile-default.jpg',
                   ),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Jane Doe',
+                  userCredential.user!.providerData[0].displayName.toString().toUpperCase(),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -50,7 +62,7 @@ class AccountScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'jane.doe@example.com',
+                  userCredential.user!.providerData[0].email.toString().toUpperCase(),
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -75,6 +87,12 @@ class AccountScreen extends StatelessWidget {
                           leading: Icon(Icons.person),
                           title: Text('Edit profile'),
                           trailing: Icon(Icons.arrow_forward_ios),
+                          onTap: () {
+                            Navigator.pushNamed(context, '/edit', arguments: {
+                              'user': userCredential,
+                              'isEmailAccount': isEmailAccount,
+                            });
+                          },
                         ),
                         Divider(),
                         ListTile(
@@ -87,6 +105,21 @@ class AccountScreen extends StatelessWidget {
                           leading: Icon(Icons.logout),
                           title: Text('Logout'),
                           trailing: Icon(Icons.arrow_forward_ios),
+                          onTap: () {
+                            awesome
+                                .buildDialog(
+                                    context,
+                                    DialogType.infoReverse,
+                                    'Confirmar',
+                                    '¿Realmente desea cerrar la sesión?',
+                                    '/login',
+                                    AnimType.bottomSlide,
+                                    true)
+                                .show()
+                                .then((value) {
+                              print(value);
+                            });
+                          },
                         ),
                       ],
                     ),

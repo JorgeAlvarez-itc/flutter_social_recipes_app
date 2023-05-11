@@ -1,62 +1,56 @@
 class RecipeModel {
-  int? idReceta;
-  String? titulo;
+  String? nombre;
+  String? tiempo;
+  String? costo;
+  int? calorias;
   List<String>? ingredientes;
-  List<String>? preparacion;
+  List<String>? procedimiento;
+  String? foto;
+  String? video;
+  double? calificacion;
   String? idUsuario;
-  int? costo;
-  String? urlFoto;
-  String? urlVideo;
-  double? votacion;
+  int? idCategoria;
 
   RecipeModel(
-      {this.idReceta,
-      this.titulo,
-      this.ingredientes,
-      this.preparacion,
-      this.idUsuario,
+      {this.nombre,
+      this.tiempo,
       this.costo,
-      this.urlFoto,
-      this.urlVideo,
-      this.votacion});
-
-  factory RecipeModel.fromMap(Map<String, dynamic> map) {
-    return RecipeModel(
-      idReceta: map['id_receta'],
-      titulo: map['titulo'],
-      ingredientes: List<String>.from(map['ingredientes']),
-      preparacion: List<String>.from(map['preparacion']),
-      idUsuario: map['id_usuario'],
-      costo: map['costo'],
-      urlFoto: map['url_foto'],
-      urlVideo: map['url_video'],
-      votacion: map['votacion'],
-    );
-  }
+      this.calorias,
+      this.ingredientes,
+      this.procedimiento,
+      this.foto,
+      this.video,
+      this.calificacion,
+      this.idUsuario,
+      this.idCategoria});
 
   RecipeModel.fromJson(Map<String, dynamic> json) {
-    idReceta = json['id_receta'];
-    titulo = json['titulo'];
-    ingredientes = json['ingredientes'].cast<String>();
-    preparacion = json['preparacion'].cast<String>();
-    idUsuario = json['id_usuario'];
+    nombre = json['nombre'];
+    tiempo = json['tiempo'];
     costo = json['costo'];
-    urlFoto = json['url_foto'];
-    urlVideo = json['url_video'];
-    votacion = json['votacion'];
+    calorias = json['calorias'];
+    ingredientes = json['ingredientes'].cast<String>();
+    procedimiento = json['procedimiento'].cast<String>();
+    foto = json['foto'];
+    video = json['video'];
+    calificacion = json['calificacion'];
+    idUsuario = json['id_usuario'];
+    idCategoria = json['id_categoria'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_receta'] = this.idReceta;
-    data['titulo'] = this.titulo;
-    data['ingredientes'] = this.ingredientes;
-    data['preparacion'] = this.preparacion;
-    data['id_usuario'] = this.idUsuario;
+    data['nombre'] = this.nombre;
+    data['tiempo'] = this.tiempo;
     data['costo'] = this.costo;
-    data['url_foto'] = this.urlFoto;
-    data['url_video'] = this.urlVideo;
-    data['votacion'] = this.votacion;
+    data['calorias'] = this.calorias;
+    data['ingredientes'] = this.ingredientes;
+    data['procedimiento'] = this.procedimiento;
+    data['foto'] = this.foto;
+    data['video'] = this.video;
+    data['calificacion'] = this.calificacion;
+    data['id_usuario'] = this.idUsuario;
+    data['id_categoria'] = this.idCategoria;
     return data;
   }
 }
