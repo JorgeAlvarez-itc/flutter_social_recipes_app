@@ -1,62 +1,47 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class RecipeModel {
-  int? idReceta;
-  String? titulo;
+  String? nombre;
+  String? tiempo;
+  String? costo;
+  int? calorias;
   List<String>? ingredientes;
-  List<String>? preparacion;
+  List<String>? procedimiento;
+  String? foto;
+  String? video;
+  double? calificacion;
   String? idUsuario;
-  int? costo;
-  String? urlFoto;
-  String? urlVideo;
-  double? votacion;
+  int? idCategoria;
 
   RecipeModel(
-      {this.idReceta,
-      this.titulo,
-      this.ingredientes,
-      this.preparacion,
-      this.idUsuario,
+      {this.nombre,
+      this.tiempo,
       this.costo,
-      this.urlFoto,
-      this.urlVideo,
-      this.votacion});
+      this.calorias,
+      this.ingredientes,
+      this.procedimiento,
+      this.foto,
+      this.video,
+      this.calificacion,
+      this.idUsuario,
+      this.idCategoria});
 
-  factory RecipeModel.fromMap(Map<String, dynamic> map) {
-    return RecipeModel(
-      idReceta: map['id_receta'],
-      titulo: map['titulo'],
-      ingredientes: List<String>.from(map['ingredientes']),
-      preparacion: List<String>.from(map['preparacion']),
-      idUsuario: map['id_usuario'],
-      costo: map['costo'],
-      urlFoto: map['url_foto'],
-      urlVideo: map['url_video'],
-      votacion: map['votacion'],
-    );
-  }
+  factory RecipeModel.fromQuerySnapshot(QueryDocumentSnapshot document) {
+  Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+  print(data);
+  return RecipeModel(
+    nombre: data['nombre'],
+    tiempo: data['tiempo'],
+    costo: data['costo'].toString(),
+    calorias: int.parse(data['calorias'].toString()),
+    ingredientes: List<String>.from(data['ingredientes']),
+    procedimiento: List<String>.from(data['procedimiento']),
+    foto: data['foto'],
+    video: data['video'],
+    calificacion: double.parse(data['calificacion'].toString()),
+    idUsuario: data['idUsuario'],
+    idCategoria: int.parse(data['idCategoria'].toString()),
+  );
+}
 
-  RecipeModel.fromJson(Map<String, dynamic> json) {
-    idReceta = json['id_receta'];
-    titulo = json['titulo'];
-    ingredientes = json['ingredientes'].cast<String>();
-    preparacion = json['preparacion'].cast<String>();
-    idUsuario = json['id_usuario'];
-    costo = json['costo'];
-    urlFoto = json['url_foto'];
-    urlVideo = json['url_video'];
-    votacion = json['votacion'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_receta'] = this.idReceta;
-    data['titulo'] = this.titulo;
-    data['ingredientes'] = this.ingredientes;
-    data['preparacion'] = this.preparacion;
-    data['id_usuario'] = this.idUsuario;
-    data['costo'] = this.costo;
-    data['url_foto'] = this.urlFoto;
-    data['url_video'] = this.urlVideo;
-    data['votacion'] = this.votacion;
-    return data;
-  }
 }

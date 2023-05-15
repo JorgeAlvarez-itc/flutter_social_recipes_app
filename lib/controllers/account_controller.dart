@@ -1,6 +1,12 @@
+import 'dart:io';
 import 'package:get/get.dart';
 
 class AccountController extends GetxController {
-  // Coloca aquí los estados que necesites para la página
-}
+  var isImage = Rx<File?>(null);
+  
+  void updateImage(File newImage) {
+    isImage.value = newImage;
+  }
 
+  
+}

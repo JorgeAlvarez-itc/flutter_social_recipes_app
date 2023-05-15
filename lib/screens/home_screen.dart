@@ -2,16 +2,18 @@ import 'navigator/home.dart';
 import 'package:get/get.dart';
 import 'navigator/videos.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../controllers/bottomNav_controller.dart';
 import 'package:recetas/screens/navigator/account.dart';
 import 'package:recetas/screens/navigator/discover.dart';
 import 'package:recetas/screens/navigator/favorites.dart';
 
 
+
 class PrincipalScreen extends StatelessWidget {
   PrincipalScreen({Key? key});
   final BottomNavBarController _controller = Get.put(BottomNavBarController());
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

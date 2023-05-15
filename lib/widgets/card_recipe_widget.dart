@@ -18,7 +18,7 @@ class CardRecipeWidget extends StatelessWidget {
                 top: Radius.circular(15.0),
               ),
               child: Image.network('https://www.cocinacaserayfacil.net/wp-content/uploads/2019/11/Recetas-de-carnes.jpg',
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 width: MediaQuery.of(context).size.width * 0.94,
               ),
             ),
