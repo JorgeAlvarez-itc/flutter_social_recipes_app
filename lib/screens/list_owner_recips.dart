@@ -33,7 +33,7 @@ class ListOwnRecipes extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add, color: Colors.black),
             onPressed: () {
-              // Handle create icon pressed
+              Navigator.pushNamed(context, '/create');
             },
           ),
         ],
