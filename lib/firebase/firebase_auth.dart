@@ -20,7 +20,7 @@ class FirebaseAuthMethods {
       final AuthCredential credential =
           EmailAuthProvider.credential(email: email, password: passEncrypt);
       userCredential.user!.updateDisplayName(displayName);
-      userCredential.user!.linkWithCredential(credential);
+      //userCredential.user!.linkWithCredential(credential);
       userCredential.user!.reload();
       userCredential.user!.sendEmailVerification();
       print('User registered: ${userCredential.user}');
@@ -79,8 +79,8 @@ class FirebaseAuthMethods {
       var cred =
           EmailAuthProvider.credentialWithLink(email: email, emailLink: email);
       print('User logged in: ${userCredential.user}');
-      userCredential.user!.linkWithCredential(cred);
-      print(cred);
+      //userCredential.user!.linkWithCredential(cred);
+      //print(cred);
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
