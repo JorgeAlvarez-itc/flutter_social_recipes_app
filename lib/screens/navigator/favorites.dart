@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
+import 'package:recetas/widgets/loading_widget.dart';
 
 class FavScreen extends StatelessWidget {
   const FavScreen({super.key});
@@ -24,7 +25,7 @@ class FavScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(2.0),
-            child: RecipeWidget(),
+            child: LoadingWidget(),
           );
         },
       ),

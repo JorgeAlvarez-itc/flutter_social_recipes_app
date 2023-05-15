@@ -1,52 +1,33 @@
-import 'dart:convert';
-import 'package:recetas/models/recipe_model.dart';
-import 'package:recetas/models/category_model.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseDB {
-  final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+class DatabaseFirebase {
+  FirebaseFirestore? _fire;
+  late List<String> _collections;
+  late CollectionReference _currentCollection;
 
-  Future<List<RecipeModel>> getRecipes() async {
-    List<RecipeModel> recipes = [];
-    DataSnapshot? snapshot;
-    try {
-      await _databaseReference.child('recetas').once().then((value) {
-        snapshot = value.snapshot;
-      });
-      if (snapshot != null && snapshot!.value != null) {
-        var recipesMap = Map<String, dynamic>.from(snapshot!.value as Map<dynamic, dynamic>);
-        var recipesList = recipesMap.entries
-            .map((entry) =>
-                RecipeModel.fromMap(Map<String, dynamic>.from(entry.value)))
-            .toList();
-        return recipesList;
-      }
-    } catch (e) {
-      print(e);
-    }
-    return recipes;
+  DatabaseFirebase(int index) {
+    _fire = FirebaseFirestore.instance;
+    _collections = ['recetas', 'categorias', 'favoritos'];
+    _currentCollection = _fire!.collection(_collections[index]);
   }
 
-  Future<List<CategoryModel>> getCategory() async {
-    List<CategoryModel> categories = [];
-    DataSnapshot? snapshot;
-    try {
-      await _databaseReference.child('categorias').once().then((value) {
-        snapshot = value.snapshot;
-      });
-      if (snapshot != null && snapshot!.value != null) {
-        var categoriesMap = Map<String, dynamic>.from(snapshot!.value as Map<dynamic, dynamic>);
-        var categoryList = categoriesMap.entries
-            .map((entry) =>
-                CategoryModel.fromMap(Map<String, dynamic>.from(entry.value)))
-            .toList();
-        return categoryList;
-      }
-    } catch (e) {
-      print(e);
-    }
-    return categories;
+  Stream<QuerySnapshot> getAllDocuments() {
+    return _currentCollection.snapshots();
   }
 
+  Stream<QuerySnapshot> getOwnRecipes(String uid) {
+    return _currentCollection.where('idUsuario', isEqualTo: uid).snapshots();
+  }
 
+  Future<void> insertDocument(Map<String, dynamic> map) async {
+    return _currentCollection.doc().set(map);
+  }
+
+  Future<void> updateDocument(Map<String, dynamic> map, String id) async {
+    return _currentCollection.doc(id).update(map);
+  }
+
+  Future<void> deleteDocument(String id) async {
+    return _currentCollection.doc(id).delete();
+  }
 }

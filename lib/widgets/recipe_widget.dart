@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:recetas/models/recipe_model.dart';
 
 class RecipeWidget extends StatelessWidget {
-  const RecipeWidget({Key? key}) : super(key: key);
-
+  RecipeWidget({Key? key, required this.recipeModel});
+  RecipeModel? recipeModel;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,7 +37,7 @@ class RecipeWidget extends StatelessWidget {
                   children: [
                     // Titulo en negritas con el nombre de la receta
                     Text(
-                      'Nombre de la Receta',
+                      recipeModel!.nombre.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
@@ -51,7 +52,7 @@ class RecipeWidget extends StatelessWidget {
                           children: [
                             Icon(Icons.access_time),
                             SizedBox(width: 8.0),
-                            Text('45 minutes'),
+                            Text(recipeModel!.tiempo.toString()),
                           ],
                         ),
                         SizedBox(height: 8.0),
@@ -59,7 +60,7 @@ class RecipeWidget extends StatelessWidget {
                           children: [
                             Icon(Icons.local_fire_department),
                             SizedBox(width: 8.0),
-                            Text('155 cal'),
+                            Text(recipeModel!.calorias.toString()),
                           ],
                         ),
                         SizedBox(height: 8.0),
@@ -70,7 +71,7 @@ class RecipeWidget extends StatelessWidget {
                               color: Colors.yellow,
                             ),
                             SizedBox(width: 8.0),
-                            Text('4.4'),
+                            Text(recipeModel!.calificacion.toString()),
                           ],
                         ),
                       ],
