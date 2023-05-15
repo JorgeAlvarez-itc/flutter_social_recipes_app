@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recetas/firebase/firebase_db.dart';
+import 'package:recetas/responsive/responsive.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key});
@@ -11,7 +12,7 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
   }
@@ -20,6 +21,20 @@ class _StartScreenState extends State<StartScreen> {
   void dispose() {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Responsive(mobile: StartMobile(), tablet: StartLandscape(),desktop: StartDesktop()),
+    );
+  }
+}
+
+class StartMobile extends StatelessWidget {
+  const StartMobile({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,22 +124,25 @@ class _StartScreenState extends State<StartScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: Text(
-                      'Login',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 64,
-                        vertical: 16,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: Text(
+                        'Login',
+                        style: TextStyle(fontSize: 15),
                       ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 64,
+                          vertical: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
                       ),
                     ),
                   ),
@@ -132,19 +150,22 @@ class _StartScreenState extends State<StartScreen> {
                 SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register');
-                    },
-                    child: Text('Register your account'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 48,
-                        vertical: 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: Text('Register your account'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 48,
+                          vertical: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
                       ),
                     ),
                   ),
@@ -152,6 +173,308 @@ class _StartScreenState extends State<StartScreen> {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class StartDesktop extends StatelessWidget {
+  const StartDesktop({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          Expanded(
+            child: Image.network(
+              'https://images.pexels.com/photos/6544491/pexels-photo-6544491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              alignment: Alignment.centerLeft,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(100),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'DELIVERED',
+                    style: TextStyle(
+                      fontSize: 56,
+                      color: Color.fromARGB(255, 65, 65, 65),
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black.withOpacity(0.6),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'FAST FOOD',
+                    style: TextStyle(
+                      fontSize: 56,
+                      color: Colors.orangeAccent,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.orangeAccent.withOpacity(0.6),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'TO YOUR',
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: Color.fromARGB(250, 78, 78, 78),
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black.withOpacity(0.6),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'RECIPES',
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.orangeAccent,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.orangeAccent,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: MediaQuery.of(context).size.height * 0.1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 25),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.orange,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 64,
+                                  vertical: 16,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/register');
+                              },
+                              child: Text('Register your account'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 48,
+                                  vertical: 16,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class StartLandscape extends StatelessWidget {
+  const StartLandscape({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          Expanded(
+            child: Image.network(
+              'https://images.pexels.com/photos/6544491/pexels-photo-6544491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              alignment: Alignment.centerLeft,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 135),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'DELIVERED',
+                    style: TextStyle(
+                      fontSize: 46,
+                      color: Color.fromARGB(255, 65, 65, 65),
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black.withOpacity(0.6),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'FAST FOOD',
+                    style: TextStyle(
+                      fontSize: 46,
+                      color: Colors.orangeAccent,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.orangeAccent.withOpacity(0.6),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'TO YOUR',
+                    style: TextStyle(
+                      fontSize: 35,
+                      color: Color.fromARGB(250, 78, 78, 78),
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black.withOpacity(0.6),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'RECIPES',
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.orangeAccent,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.orangeAccent,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: MediaQuery.of(context).size.height * 0.1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 25),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.orange,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 64,
+                                  vertical: 16,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/register');
+                              },
+                              child: Text('Register your account'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 48,
+                                  vertical: 16,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
