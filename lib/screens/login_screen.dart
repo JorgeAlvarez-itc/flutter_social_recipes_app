@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -24,9 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       authMethods.signOut();
+      String passEncrypt = md5.convert(utf8.encode(txtPassCont!.text)).toString();
       authMethods
           .signInWithEmailAndPassword(
-              email: txtEmailCont!.text, password: txtPassCont!.text)
+              email: txtEmailCont!.text, password: passEncrypt.toString())
           .then((value) {
         if (value != null) {
           User aux = value.user!;
@@ -34,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushNamed(context, '/home', arguments: {
               'user': value,
               'isEmailAccount': true,
+              'password':passEncrypt.toString(),
             });
           } else {
             AwesomeDialog(
@@ -213,7 +217,16 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: SocialLoginButton(
         buttonType: SocialLoginButtonType.facebook,
-        onPressed: () {},
+        onPressed: () {
+           authMethods.signInWithFacebook().then((value) {
+            if (value != null) {
+              Navigator.pushNamed(context, '/home',  arguments: {
+              'user': value,
+              'isEmailAccount': false,
+            });
+            } else {}
+          });
+        },
         text: 'Continue with Facebook',
         borderRadius: 30.0,
       ),

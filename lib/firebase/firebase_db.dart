@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FavoritesFirebase {
+class DatabaseFirebase {
   FirebaseFirestore? _fire;
   late List<String> _collections;
   late CollectionReference _currentCollection;
 
-  FavoritesFirebase(int index) {
+  DatabaseFirebase(int index) {
     _fire = FirebaseFirestore.instance;
     _collections = ['recetas', 'categorias', 'favoritos'];
     _currentCollection = _fire!.collection(_collections[index]);
@@ -13,6 +13,10 @@ class FavoritesFirebase {
 
   Stream<QuerySnapshot> getAllDocuments() {
     return _currentCollection.snapshots();
+  }
+
+  Stream<QuerySnapshot> getOwnRecipes(String uid) {
+    return _currentCollection.where('idUsuario', isEqualTo: uid).snapshots();
   }
 
   Future<void> insertDocument(Map<String, dynamic> map) async {
@@ -27,4 +31,3 @@ class FavoritesFirebase {
     return _currentCollection.doc(id).delete();
   }
 }
-

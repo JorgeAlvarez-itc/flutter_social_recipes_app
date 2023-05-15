@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class RecipeModel {
   String? nombre;
   String? tiempo;
@@ -24,33 +26,22 @@ class RecipeModel {
       this.idUsuario,
       this.idCategoria});
 
-  RecipeModel.fromJson(Map<String, dynamic> json) {
-    nombre = json['nombre'];
-    tiempo = json['tiempo'];
-    costo = json['costo'];
-    calorias = json['calorias'];
-    ingredientes = json['ingredientes'].cast<String>();
-    procedimiento = json['procedimiento'].cast<String>();
-    foto = json['foto'];
-    video = json['video'];
-    calificacion = json['calificacion'];
-    idUsuario = json['id_usuario'];
-    idCategoria = json['id_categoria'];
-  }
+  factory RecipeModel.fromQuerySnapshot(QueryDocumentSnapshot document) {
+  Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+  print(data);
+  return RecipeModel(
+    nombre: data['nombre'],
+    tiempo: data['tiempo'],
+    costo: data['costo'].toString(),
+    calorias: int.parse(data['calorias'].toString()),
+    ingredientes: List<String>.from(data['ingredientes']),
+    procedimiento: List<String>.from(data['procedimiento']),
+    foto: data['foto'],
+    video: data['video'],
+    calificacion: double.parse(data['calificacion'].toString()),
+    idUsuario: data['idUsuario'],
+    idCategoria: int.parse(data['idCategoria'].toString()),
+  );
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nombre'] = this.nombre;
-    data['tiempo'] = this.tiempo;
-    data['costo'] = this.costo;
-    data['calorias'] = this.calorias;
-    data['ingredientes'] = this.ingredientes;
-    data['procedimiento'] = this.procedimiento;
-    data['foto'] = this.foto;
-    data['video'] = this.video;
-    data['calificacion'] = this.calificacion;
-    data['id_usuario'] = this.idUsuario;
-    data['id_categoria'] = this.idCategoria;
-    return data;
-  }
 }

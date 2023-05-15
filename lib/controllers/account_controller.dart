@@ -7,4 +7,6 @@ class AccountController extends GetxController {
   void updateImage(File newImage) {
     isImage.value = newImage;
   }
+
+  
 }

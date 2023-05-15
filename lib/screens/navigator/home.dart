@@ -1,16 +1,22 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/home_controller.dart';
+import 'package:recetas/models/recipe_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:recetas/firebase/firebase_db.dart';
+import 'package:recetas/models/category_model.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/categories_widget.dart';
 
 class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isEmailAccount = args['isEmailAccount'] ?? false;
     final UserCredential userCredential = args['user'] as UserCredential;
+    DatabaseFirebase _dbCat = DatabaseFirebase(1);
+    DatabaseFirebase _dbReci = DatabaseFirebase(0);
 
     return SingleChildScrollView(
       child: Column(
@@ -47,7 +53,9 @@ class HomePage extends GetView<HomeController> {
                           ),
                         ),
                         Text(
-                          userCredential.user!.providerData[0].displayName.toString().split(' ')[0],
+                          userCredential.user!.providerData[0].displayName
+                              .toString()
+                              .split(' ')[0],
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -137,14 +145,33 @@ class HomePage extends GetView<HomeController> {
           ),
           SizedBox(
             height: 150,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CategoryWidget(),
-                );
+            child: StreamBuilder(
+              stream: _dbCat.getAllDocuments(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      CategoryModel aux = CategoryModel.fromQuerySnapshot(
+                          snapshot.data!.docs[index]);
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CategoryWidget(
+                          categoryModel: aux,
+                        ),
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('Error al realizar la peticion xd'),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
               },
             ),
           ),
@@ -155,8 +182,8 @@ class HomePage extends GetView<HomeController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Suggests',
+                const Text(
+                  'Sugerencias',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -164,7 +191,7 @@ class HomePage extends GetView<HomeController> {
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     'See All',
                     style: TextStyle(color: Colors.orangeAccent),
                   ),
@@ -180,13 +207,31 @@ class HomePage extends GetView<HomeController> {
                 Expanded(
                   child: SizedBox(
                     height: 150,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return RecipeWidget();
-                      },
-                    ),
+                    child: StreamBuilder(
+                        stream: _dbReci.getAllDocuments(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                RecipeModel aux = RecipeModel.fromQuerySnapshot(
+                                    snapshot.data!.docs[index]);
+                                return RecipeWidget(
+                                  recipeModel: aux,
+                                );
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return const Center(
+                              child: Text('Error al realizar la peticion xd'),
+                            );
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        }),
                   ),
                 ),
               ],

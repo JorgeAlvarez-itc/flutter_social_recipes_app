@@ -205,7 +205,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
       width: double.infinity,
       child: SocialLoginButton(
         buttonType: SocialLoginButtonType.facebook,
-        onPressed: () {},
+        onPressed: () async{
+          authMethods.signUpWithFacebook().then((value){
+            if (value == 1) {
+              awesome
+                  .buildDialog(
+                      context,
+                      DialogType.success,
+                      'Registro exitoso',
+                      'Su cuenta se ha registrado por favor inicia sesion',
+                      '/login',
+                      AnimType.scale,
+                      false)
+                  .show();
+            } else if (value == 2) {
+              awesome
+                  .buildDialog(
+                      context,
+                      DialogType.warning,
+                      'La cuenta ya está registrada',
+                      'Ya existe una cuenta registrada con este correo electronico, por favor inicie sesion',
+                      '/login',
+                      AnimType.bottomSlide,
+                      false)
+                  .show();
+            } else {
+              awesome
+                  .buildDialog(
+                      context,
+                      DialogType.error,
+                      'Ocurrio un error',
+                      'Ocurrió un error al intentar realizar el registro',
+                      '/register',
+                      AnimType.bottomSlide,
+                      false)
+                  .show();
+            }
+          });
+        },
         text: 'Continue with Facebook',
         borderRadius: 30.0,
       ),

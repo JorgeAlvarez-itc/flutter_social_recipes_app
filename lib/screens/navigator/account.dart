@@ -8,11 +8,14 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? password;
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isEmailAccount = args['isEmailAccount'] ?? false;
     final UserCredential userCredential = args['user'] as UserCredential;
-
+    if(args['password']!=null){
+      password= args['password'] as String;
+    }
     Awesome awesome = Awesome();
     return Scaffold(
       body: Stack(
@@ -91,14 +94,20 @@ class AccountScreen extends StatelessWidget {
                             Navigator.pushNamed(context, '/edit', arguments: {
                               'user': userCredential,
                               'isEmailAccount': isEmailAccount,
+                              'pass':password,
                             });
                           },
                         ),
                         Divider(),
                         ListTile(
-                          leading: Icon(Icons.contact_mail),
-                          title: Text('Contact us'),
+                          leading: Icon(Icons.microwave_outlined),
+                          title: Text('My recipes'),
                           trailing: Icon(Icons.arrow_forward_ios),
+                          onTap: (){
+                            Navigator.pushNamed(context, '/own', arguments: {
+                              'user': userCredential,
+                            });
+                          },
                         ),
                         Divider(),
                         ListTile(
@@ -112,7 +121,7 @@ class AccountScreen extends StatelessWidget {
                                     DialogType.infoReverse,
                                     'Confirmar',
                                     '¿Realmente desea cerrar la sesión?',
-                                    '/login',
+                                    '/start',
                                     AnimType.bottomSlide,
                                     true)
                                 .show()
