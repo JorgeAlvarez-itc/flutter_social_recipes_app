@@ -11,7 +11,7 @@ class RecipeModel {
   String? video;
   double? calificacion;
   String? idUsuario;
-  int? idCategoria;
+  String? idCategoria;
 
   RecipeModel(
       {this.nombre,
@@ -40,7 +40,7 @@ class RecipeModel {
     video: data['video'],
     calificacion: double.parse(data['calificacion'].toString()),
     idUsuario: data['idUsuario'],
-    idCategoria: int.parse(data['idCategoria'].toString()),
+    idCategoria: data['idCategoria'],
   );
 }
 

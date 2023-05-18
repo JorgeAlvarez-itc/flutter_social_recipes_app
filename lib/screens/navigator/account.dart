@@ -121,7 +121,7 @@ class AccountScreen extends StatelessWidget {
                                     DialogType.infoReverse,
                                     'Confirmar',
                                     '¿Realmente desea cerrar la sesión?',
-                                    '/oboarding',
+                                    '/onboarding',
                                     AnimType.bottomSlide,
                                     true)
                                 .show()

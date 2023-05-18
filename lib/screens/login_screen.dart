@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:recetas/firebase/firebase_auth.dart';
 import 'package:recetas/controllers/home_controller.dart';
+import 'package:recetas/responsive/responsive.dart';
 import 'package:recetas/widgets/awesomeDialog_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -26,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       authMethods.signOut();
-      String passEncrypt = md5.convert(utf8.encode(txtPassCont!.text)).toString();
+      String passEncrypt =
+          md5.convert(utf8.encode(txtPassCont!.text)).toString();
       authMethods
           .signInWithEmailAndPassword(
               email: txtEmailCont!.text, password: passEncrypt.toString())
@@ -37,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushNamed(context, '/home', arguments: {
               'user': value,
               'isEmailAccount': true,
-              'password':passEncrypt.toString(),
+              'password': passEncrypt.toString(),
             });
           } else {
             AwesomeDialog(
@@ -81,6 +83,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Responsive(
+              mobile: MobileLogin(context),
+              tablet: LandscapeLogin(context),
+              desktop: LandscapeLogin(context))
+        ],
+      ),
+    );
+  }
+
+  Scaffold MobileLogin(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -197,6 +212,137 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Scaffold LandscapeLogin(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(
+              child: SizedBox(
+                 // Ajusta el factor de escala según tus necesidades
+                child: Image.network(
+                  'https://images.pexels.com/photos/6605302/pexels-photo-6605302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white12,
+                ),
+                margin: EdgeInsets.only(right: 15,left: 15),
+                //padding: EdgeInsets.all(16),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Welcome back',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      TextFormField(
+                        controller: txtEmailCont,
+                        decoration: const InputDecoration(
+                          hintText: 'Email address',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          final emailRegExp =
+                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                          if (!emailRegExp.hasMatch(value.toString())) {
+                            return 'Por favor ingresa un correo electrónico válido';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: txtPassCont,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Password',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Por favor ingresa una contraseña';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                  const SizedBox(height: 5),
+                  _buildGeneralbtn(context),
+                  const SizedBox(height: 10),
+                  _buildFacebookbtn(),
+                  const SizedBox(height: 10),
+                  _buildGooglebtn(),
+                  const SizedBox(height: 10),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Forgot password? '),
+                      TextButton(
+                        onPressed: () {
+                          _buildDialogRecover(context);
+                        },
+                        child: const Text(
+                          'Send password reset email',
+                          style: TextStyle(
+                            color: Colors.orangeAccent,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Don\'t have an account? '),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Colors.orangeAccent,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                            ],
+                          ),
+                ))
+            //const SizedBox(height: 32),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildGeneralbtn(BuildContext context) {
     return SizedBox(
       width: double.infinity,
@@ -218,16 +364,17 @@ class _LoginScreenState extends State<LoginScreen> {
       child: SocialLoginButton(
         buttonType: SocialLoginButtonType.facebook,
         onPressed: () {
-           authMethods.signInWithFacebook().then((value) {
+          authMethods.signInWithFacebook().then((value) {
             if (value != null) {
-              Navigator.pushNamed(context, '/home',  arguments: {
-              'user': value,
-              'isEmailAccount': false,
-            });
+              Navigator.pushNamed(context, '/home', arguments: {
+                'user': value,
+                'isEmailAccount': false,
+              });
             } else {}
           });
         },
         text: 'Continue with Facebook',
+        fontSize: 12,
         borderRadius: 30.0,
       ),
     );
@@ -241,14 +388,15 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           authMethods.signInWithGoogle().then((value) {
             if (value != null) {
-              Navigator.pushNamed(context, '/home',  arguments: {
-              'user': value,
-              'isEmailAccount': false,
-            });
+              Navigator.pushNamed(context, '/home', arguments: {
+                'user': value,
+                'isEmailAccount': false,
+              });
             } else {}
           });
         },
         text: 'Continue with Google',
+        fontSize: 12,
         borderRadius: 30.0,
       ),
     );
