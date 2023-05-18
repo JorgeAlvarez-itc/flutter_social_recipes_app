@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/models/recipe_model.dart';
 import 'package:recetas/firebase/firebase_db.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/loading_widget.dart';
 import 'package:recetas/widgets/card_recipe_widget.dart';
@@ -33,7 +34,9 @@ class ListOwnRecipes extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add, color: Colors.black),
             onPressed: () {
-              Navigator.pushNamed(context, '/create');
+              Navigator.pushNamed(context, '/create', arguments: {
+                'user': userCredential,
+              });
             },
           ),
         ],
@@ -49,8 +52,58 @@ class ListOwnRecipes extends StatelessWidget {
                 itemBuilder: (context, index) {
                   RecipeModel aux =
                       RecipeModel.fromQuerySnapshot(snapshot.data!.docs[index]);
-                  return RecipeWidget(
-                    recipeModel: aux,
+                  return Stack(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: Card(
+                          color: Colors.white,
+                          child: Stack(
+                            children: [
+                              RecipeWidget(
+                                recipeModel: aux,
+                              ),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: IconButton(
+                                  icon: Icon(Icons.edit, color: Colors.green),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/create',
+                                        arguments: {
+                                          'user': userCredential,
+                                          'recipe': aux,
+                                          'id': snapshot!.data!.docs[index].id,
+                                        });
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 10,
+                                right: 10,
+                                child: IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                  onPressed: () {
+                                    AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.warning,
+                                        title: 'Confirmación',
+                                        desc:
+                                            '¿Realmente desea eliminar esta receta?',
+                                        animType: AnimType.scale,
+                                        btnCancelOnPress: () {},
+                                        btnOkOnPress: () {
+                                          _dbReci.deleteDocument(
+                                              snapshot!.data!.docs[index].id);
+                                        }).show();
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               );
