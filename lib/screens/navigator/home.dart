@@ -222,6 +222,7 @@ class HomePage extends GetView<HomeController> {
                                     snapshot.data!.docs[index]);
                                 return RecipeWidget(
                                   recipeModel: aux,
+                                  docId: snapshot!.data!.docs[index].id,
                                 );
                               },
                             );
