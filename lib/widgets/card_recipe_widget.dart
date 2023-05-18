@@ -1,3 +1,4 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 
 class CardRecipeWidget extends StatelessWidget {
@@ -6,21 +7,34 @@ class CardRecipeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(15.0),
-              ),
-              child: Image.network('https://www.cocinacaserayfacil.net/wp-content/uploads/2019/11/Recetas-de-carnes.jpg',
-                fit: BoxFit.contain,
-                width: MediaQuery.of(context).size.width * 0.94,
-              ),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  child: Image.network(
+                    'https://www.cocinacaserayfacil.net/wp-content/uploads/2019/11/Recetas-de-carnes.jpg',
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width * 0.94,
+                    height:MediaQuery.of(context).size.height * 0.94,
+                  ).blurred(blur: 2,blurColor: Colors.black),
+                ),
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(15),
+                      bottom: Radius.circular(15)
+                    ),
+                    child: Image.network(
+                      'https://www.cocinacaserayfacil.net/wp-content/uploads/2019/11/Recetas-de-carnes.jpg',
+                      fit: BoxFit.contain,
+                      width: MediaQuery.of(context).size.width * 0.94,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Padding(

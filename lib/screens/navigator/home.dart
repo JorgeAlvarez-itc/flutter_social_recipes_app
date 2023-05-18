@@ -42,11 +42,11 @@ class HomePage extends GetView<HomeController> {
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.orangeAccent,
                             shadows: [
                               Shadow(
                                 blurRadius: 10.0,
-                                color: Colors.black.withOpacity(0.6),
+                                color: Color.fromARGB(255, 255, 255, 255),
                                 offset: Offset(2.0, 2.0),
                               ),
                             ],
@@ -91,7 +91,7 @@ class HomePage extends GetView<HomeController> {
                 left: 0,
                 right: 0,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                   child: Card(
                     child: Row(
                       children: [
@@ -107,12 +107,15 @@ class HomePage extends GetView<HomeController> {
                             ),
                           ),
                         ),
-                        Image.network(
-                          'https://images.pexels.com/photos/4146123/pexels-photo-4146123.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image.network(
+                            'https://images.pexels.com/photos/4146123/pexels-photo-4146123.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -200,7 +203,7 @@ class HomePage extends GetView<HomeController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -219,6 +222,7 @@ class HomePage extends GetView<HomeController> {
                                     snapshot.data!.docs[index]);
                                 return RecipeWidget(
                                   recipeModel: aux,
+                                  docId: snapshot!.data!.docs[index].id,
                                 );
                               },
                             );
