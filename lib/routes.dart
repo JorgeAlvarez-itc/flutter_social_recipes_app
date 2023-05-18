@@ -8,6 +8,7 @@ import 'package:recetas/screens/list_owner_recips.dart';
 import 'package:recetas/screens/onboarding_screen.dart';
 import 'package:recetas/screens/create_recip_screen.dart';
 import 'package:recetas/screens/edit_profile_srcreen.dart';
+import 'package:recetas/widgets/details_recipe_widget.dart';
 
 
 
@@ -22,5 +23,6 @@ Map<String,WidgetBuilder>getApplicationRoutes(){
     '/edit':(BuildContext context) => EditProfileScreen(),
     '/own':(BuildContext context) => ListOwnRecipes(),
     '/create':(BuildContext context) => CreateRecipScreen(),
+    '/details':(BuildContext context) => DetailsRecipeScreen(),
   };
 }

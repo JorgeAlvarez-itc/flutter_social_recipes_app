@@ -12,6 +12,7 @@ class RecipeModel {
   double? calificacion;
   String? idUsuario;
   String? idCategoria;
+  int? voteCount;
 
   RecipeModel(
       {this.nombre,
@@ -24,7 +25,8 @@ class RecipeModel {
       this.video,
       this.calificacion,
       this.idUsuario,
-      this.idCategoria});
+      this.idCategoria,
+      this.voteCount});
 
   factory RecipeModel.fromQuerySnapshot(QueryDocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -41,6 +43,7 @@ class RecipeModel {
       calificacion: double.parse(data['calificacion'].toString()),
       idUsuario: data['idUsuario'],
       idCategoria: data['idCategoria'].toString(),
+      voteCount: int.parse(data['voteCount'].toString()),
     );
   }
 
@@ -57,6 +60,7 @@ class RecipeModel {
       'calificacion': calificacion,
       'idUsuario': idUsuario,
       'idCategoria': idCategoria,
+      'voteCount':voteCount,
     };
   }
 }
