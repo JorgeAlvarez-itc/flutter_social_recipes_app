@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RecipeModel {
+  String? id;
   String? nombre;
   String? tiempo;
   String? costo;
@@ -26,7 +27,8 @@ class RecipeModel {
       this.calificacion,
       this.idUsuario,
       this.idCategoria,
-      this.voteCount});
+      this.voteCount,
+      this.id});
 
   factory RecipeModel.fromQuerySnapshot(QueryDocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -44,6 +46,7 @@ class RecipeModel {
       idUsuario: data['idUsuario'],
       idCategoria: data['idCategoria'].toString(),
       voteCount: int.parse(data['voteCount'].toString()),
+      id: document.id,
     );
   }
 
@@ -61,6 +64,7 @@ class RecipeModel {
       'idUsuario': idUsuario,
       'idCategoria': idCategoria,
       'voteCount':voteCount,
+      'id':id,
     };
   }
 }

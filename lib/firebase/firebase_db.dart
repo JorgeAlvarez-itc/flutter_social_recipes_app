@@ -1,3 +1,4 @@
+import 'package:recetas/models/recipe_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseFirebase {
@@ -11,12 +12,29 @@ class DatabaseFirebase {
     _currentCollection = _fire!.collection(_collections[index]);
   }
 
-  Stream<QuerySnapshot> getAllDocuments() {
-    return _currentCollection.snapshots();
-  }
-
   Stream<QuerySnapshot> getOwnRecipes(String uid) {
     return _currentCollection.where('idUsuario', isEqualTo: uid).snapshots();
+  }
+
+  Stream<QuerySnapshot> getFavoriteRecipes(String userId) {
+   return _currentCollection.where('idUsuario', isEqualTo: userId).snapshots();
+  }
+  Future<List<RecipeModel>> getRecipesFromIds(List<String> recipeIds) async {
+    QuerySnapshot snapshot = await _fire!
+        .collection('recetas')
+        .where(FieldPath.documentId, whereIn: recipeIds)
+        .get();
+
+    List<RecipeModel> recipes = [];
+    for (QueryDocumentSnapshot document in snapshot.docs) {
+      RecipeModel recipe = RecipeModel.fromQuerySnapshot(document);
+      recipes.add(recipe);
+    }
+    return recipes;
+  }
+
+  Stream<QuerySnapshot> getAllDocuments() {
+    return _currentCollection.snapshots();
   }
 
   Future<void> insertDocument(Map<String, dynamic> map) async {
