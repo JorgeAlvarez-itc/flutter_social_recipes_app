@@ -107,7 +107,7 @@ class _CreateRecipScreenState extends State<CreateRecipScreen> {
             calificacion: 0.0,
             idCategoria: txtCat!.text,
             idUsuario: txtuid!.text,
-            voteCount: recipeModel!.voteCount! >0?recipeModel!.voteCount :0);
+            voteCount: recipeModel!=null?recipeModel!.voteCount :0);
         if (recipeModel != null) {
           _databaseRecips.updateDocument(recipeModelAux.toMap(), recipeID!);
         } else {

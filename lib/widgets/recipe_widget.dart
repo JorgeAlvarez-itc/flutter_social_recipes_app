@@ -79,7 +79,7 @@ class RecipeWidget extends StatelessWidget {
                                 color: Colors.yellow,
                               ),
                               SizedBox(width: 8.0),
-                              Text(recipeModel!.calificacion.toString()),
+                              Text(recipeModel!.calificacion!.roundToDouble().toString()),
                             ],
                           ),
                         ],

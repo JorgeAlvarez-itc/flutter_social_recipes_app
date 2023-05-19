@@ -21,7 +21,6 @@ class PrincipalScreen extends StatelessWidget {
             index: _controller.currentIndex.value,
             children: [
               HomePage(),
-              VideoPage(),
               DiscoverPage(),
               FavScreen(),
               AccountScreen()
@@ -46,16 +45,8 @@ class PrincipalScreen extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.video_library,
-                  color: _controller.currentIndex.value == 1
-                      ? Colors.orangeAccent
-                      : Colors
-                          .grey), // Cambia el color del ícono según el índice actual
-              label: 'Video',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.explore,
-                  color: _controller.currentIndex.value == 2
+                  color: _controller.currentIndex.value == 1
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
@@ -63,7 +54,7 @@ class PrincipalScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite,
-                  color: _controller.currentIndex.value == 3
+                  color: _controller.currentIndex.value == 2
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
@@ -71,7 +62,7 @@ class PrincipalScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person,
-                  color: _controller.currentIndex.value == 4
+                  color: _controller.currentIndex.value == 3
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
