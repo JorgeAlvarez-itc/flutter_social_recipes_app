@@ -136,13 +136,6 @@ class HomePage extends GetView<HomeController> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'See All',
-                    style: TextStyle(color: Colors.orangeAccent),
-                  ),
-                ),
               ],
             ),
           ),

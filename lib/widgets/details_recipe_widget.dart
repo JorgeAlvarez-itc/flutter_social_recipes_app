@@ -49,12 +49,36 @@ class DetailsRecipeScreen extends StatelessWidget {
             (recipe!.calificacion! * recipe!.voteCount! + response.rating) /
                 (recipe!.voteCount! + 1);
         recipe!.voteCount = recipe!.voteCount! + 1;
-        recipe!.calificacion =
-            (recipe!.calificacion! + response.rating) / recipe!.voteCount!;
+
         await _dbReci.updateDocument(recipe!.toMap(), id!);
       },
     );
 
+    return Scaffold(
+      body: Stack(
+        children: [
+          Responsive(
+              mobile: MobileRecipeDetails(recipe: recipe, dialog: _dialog),
+              tablet: LandscapeRecipeDetails(recipe: recipe, dialog: _dialog),
+              desktop: LandscapeRecipeDetails(recipe: recipe, dialog: _dialog))
+        ],
+      ),
+    );
+  }
+}
+
+class MobileRecipeDetails extends StatelessWidget {
+  const MobileRecipeDetails({
+    super.key,
+    required this.recipe,
+    required RatingDialog dialog,
+  }) : _dialog = dialog;
+
+  final RecipeModel? recipe;
+  final RatingDialog _dialog;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -151,8 +175,9 @@ class DetailsRecipeScreen extends StatelessWidget {
                       children: [
                         const Text(
                           'Información de la receta',
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+
+                          style:
+                              TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Card(
@@ -195,9 +220,8 @@ class DetailsRecipeScreen extends StatelessWidget {
                                     children: [
                                       Icon(Icons.whatshot,
                                           color: Colors.orangeAccent),
-                                      Text(
-                                          (recipe?.calorias?.toString() ?? '') +
-                                              ' Cal'),
+                                      Text((recipe?.calorias?.toString() ?? '') +
+                                          ' Cal'),
                                     ],
                                   ),
                                 ),
@@ -236,8 +260,9 @@ class DetailsRecipeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // ...código anterior...
-
+                                
                                   const SizedBox(height: 20),
+                                
 
                                   ElevatedButton.icon(
                                     onPressed: () {
@@ -245,6 +270,7 @@ class DetailsRecipeScreen extends StatelessWidget {
                                     },
                                     style: ButtonStyle(
                                       elevation: MaterialStateProperty.all(10),
+
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.orangeAccent),
@@ -287,7 +313,10 @@ class DetailsRecipeScreen extends StatelessWidget {
 }
 
 class LandscapeRecipeDetails extends StatelessWidget {
+
+  const LandscapeRecipeDetails({
   LandscapeRecipeDetails({
+
     super.key,
     required this.recipe,
     required RatingDialog dialog,
@@ -295,6 +324,8 @@ class LandscapeRecipeDetails extends StatelessWidget {
 
   final RecipeModel? recipe;
   final RatingDialog _dialog;
+
+
 
   DatabaseFirebase _dbFavs = DatabaseFirebase(2);
   FavsModel? favsModel;
@@ -347,7 +378,6 @@ class LandscapeRecipeDetails extends StatelessWidget {
                           // show the dialog
                           showDialog(
                             context: context,
-
                             barrierDismissible:
                                 true, // set to false if you want to force a rating
                             builder: (context) => _dialog,
@@ -449,8 +479,10 @@ class LandscapeRecipeDetails extends StatelessWidget {
                                 Text(
                                   'Ingredientes',
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
+
+                                      fontSize: 25, fontWeight: FontWeight.bold),
+
+
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -461,8 +493,8 @@ class LandscapeRecipeDetails extends StatelessWidget {
                                 Text(
                                   'Instrucciones',
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 25, fontWeight: FontWeight.bold),
+
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -472,6 +504,7 @@ class LandscapeRecipeDetails extends StatelessWidget {
                                 const SizedBox(height: 20),
                                 Center(
                                   child: Column(
+
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [

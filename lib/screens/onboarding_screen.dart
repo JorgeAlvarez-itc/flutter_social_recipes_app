@@ -539,8 +539,8 @@ class OnBoardingTablet extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 500,
-                    blurRadius: 300,
+                    spreadRadius: 100,
+                    blurRadius: 150,
                     offset: Offset(0, 9),
                   ),
                 ],
@@ -610,7 +610,7 @@ class OnBoardingTablet extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 500,
+                    spreadRadius: 150,
                     blurRadius: 300,
                     offset: Offset(0, 9),
                   ),
@@ -681,8 +681,8 @@ class OnBoardingTablet extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 500,
-                    blurRadius: 300,
+                    spreadRadius: 150,
+                    blurRadius: 150,
                     offset: Offset(0, 9),
                   ),
                 ],
