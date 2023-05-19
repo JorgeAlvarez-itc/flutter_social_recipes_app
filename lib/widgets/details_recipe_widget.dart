@@ -98,6 +98,7 @@ class MobileRecipeDetails extends StatelessWidget {
               mobile: _buildMobileRecipe(context,_dialog),
               tablet: LandscapeRecipeDetails(recipe: recipe, dialog: _dialog),
               desktop: LandscapeRecipeDetails(recipe: recipe, dialog: _dialog))
+              dsadsadsa
         ],
       ),
     );
