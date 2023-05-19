@@ -30,13 +30,15 @@ class FavScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder(
-        stream:
-            _firebaseFavs.getFavoriteRecipes(userCredential.user!.uid),
+        stream: _firebaseFavs.getFavoriteRecipes(userCredential.user!.uid),
         builder: (context, snapshot) {
-          FavsModel favsModel =
-              FavsModel.fromQuerySnapshot(snapshot.data!.docs[0]);
+          FavsModel? favsModel;
+          if (snapshot.hasData) {
+            favsModel = FavsModel.fromQuerySnapshot(snapshot.data!.docs[0]);
+          }
+
           return FutureBuilder(
-            future: _firebaseFavs.getRecipesFromIds(favsModel.recetas!),
+            future: _firebaseFavs.getRecipesFromIds(favsModel!.recetas!),
             builder: (context, snapshot1) {
               if (snapshot1.hasData) {
                 return ListView.builder(
@@ -74,8 +76,7 @@ class FavScreen extends StatelessWidget {
                                             .toList() ??
                                         [];
                                     _firebaseFavs.updateDocument({
-                                      'idUsuario':
-                                          userCredential.user!.uid,
+                                      'idUsuario': userCredential.user!.uid,
                                       'recetas': recipeIds
                                     }, snapshot.data!.docs[0].id);
                                   }).show();
