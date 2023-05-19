@@ -1,8 +1,10 @@
 import '../models/recipe_model.dart';
 import '../firebase/firebase_db.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/card_recipe_widget.dart';
+
 
 
 class ListAllrecipes extends StatelessWidget {
@@ -11,7 +13,9 @@ class ListAllrecipes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DatabaseFirebase _dbReci = DatabaseFirebase(0);
-
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final UserCredential userCredential = args['user'] as UserCredential;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -47,7 +51,7 @@ class ListAllrecipes extends StatelessWidget {
                       itemBuilder: (context, index) {
                         RecipeModel aux = RecipeModel.fromQuerySnapshot(
                             snapshot.data!.docs[index]);
-                        return RecipeWidget(recipeModel: aux, docId: aux.id);
+                        return RecipeWidget(recipeModel: aux, docId: aux.id,userCredential: userCredential,);
                       },
                     );
                   },

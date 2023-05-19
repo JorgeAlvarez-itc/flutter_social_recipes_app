@@ -187,7 +187,8 @@ class HomePage extends GetView<HomeController> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/listall', arguments: userCredential);
+                    Navigator.pushNamed(context, '/listall', arguments: {
+                      'user':userCredential});
                   },
                   child: const Text(
                     'Ver todo!',
