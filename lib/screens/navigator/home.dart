@@ -186,9 +186,11 @@ class HomePage extends GetView<HomeController> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/listall', arguments: userCredential);
+                  },
                   child: const Text(
-                    'See All',
+                    'Ver todo!',
                     style: TextStyle(color: Colors.orangeAccent),
                   ),
                 ),

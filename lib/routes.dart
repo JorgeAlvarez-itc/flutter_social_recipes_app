@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:recetas/screens/home_screen.dart';
+import 'package:recetas/screens/list_recipes_screen.dart';
 import 'package:recetas/screens/login_screen.dart';
 import 'package:recetas/screens/start_screen.dart';
 import 'package:recetas/screens/search_screen.dart';
@@ -24,5 +25,6 @@ Map<String,WidgetBuilder>getApplicationRoutes(){
     '/own':(BuildContext context) => ListOwnRecipes(),
     '/create':(BuildContext context) => CreateRecipScreen(),
     '/details':(BuildContext context) => DetailsRecipeScreen(),
+    '/listall':(BuildContext context) => ListAllrecipes(),
   };
 }
