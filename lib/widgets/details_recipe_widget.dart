@@ -53,8 +53,19 @@ class DetailsRecipeScreen extends StatelessWidget {
         await _dbReci.updateDocument(recipe!.toMap(), id!);
       },
     );
-
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('Recipe',
+            textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Responsive(

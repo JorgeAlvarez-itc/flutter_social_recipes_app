@@ -16,6 +16,7 @@ class FavScreen extends StatelessWidget {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final UserCredential userCredential = args['user'] as UserCredential;
+    print(args);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
