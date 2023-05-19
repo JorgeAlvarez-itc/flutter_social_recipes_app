@@ -1,5 +1,6 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:recetas/models/favs_model.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:recetas/models/recipe_model.dart';
 import 'package:recetas/firebase/firebase_db.dart';
@@ -10,6 +11,7 @@ class DetailsRecipeScreen extends StatelessWidget {
   String? id;
   DetailsRecipeScreen({Key? key, this.recipe}) : super(key: key);
   DatabaseFirebase _dbReci = DatabaseFirebase(0);
+  FavsModel? favsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class DetailsRecipeScreen extends StatelessWidget {
             (recipe!.calificacion! * recipe!.voteCount! + response.rating) /
                 (recipe!.voteCount! + 1);
         recipe!.voteCount = recipe!.voteCount! + 1;
+
         await _dbReci.updateDocument(recipe!.toMap(), id!);
       },
     );
@@ -89,7 +92,20 @@ class MobileRecipeDetails extends StatelessWidget {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: Stack(
+        children: [
+          Responsive(
+              mobile: _buildMobileRecipe(context,_dialog),
+              tablet: LandscapeRecipeDetails(recipe: recipe, dialog: _dialog),
+              desktop: LandscapeRecipeDetails(recipe: recipe, dialog: _dialog))
+        ],
+      ),
+    );
+  }
+
+  _buildMobileRecipe(BuildContext context,RatingDialog _dialog ) {
+    return Container(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
@@ -159,6 +175,7 @@ class MobileRecipeDetails extends StatelessWidget {
                       children: [
                         const Text(
                           'Información de la receta',
+
                           style:
                               TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                         ),
@@ -246,22 +263,26 @@ class MobileRecipeDetails extends StatelessWidget {
                                 
                                   const SizedBox(height: 20),
                                 
+
                                   ElevatedButton.icon(
                                     onPressed: () {
                                       // Lógica para agregar a favoritos
                                     },
                                     style: ButtonStyle(
                                       elevation: MaterialStateProperty.all(10),
-                                      backgroundColor: MaterialStateProperty.all(
-                                          Colors.orangeAccent),
+
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.orangeAccent),
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                         ),
                                       ),
-                                      minimumSize:
-                                          MaterialStateProperty.all(Size(200, 50)),
+                                      minimumSize: MaterialStateProperty.all(
+                                          Size(200, 50)),
                                       // Ajusta el tamaño aquí
                                     ),
                                     icon: Icon(
@@ -292,7 +313,10 @@ class MobileRecipeDetails extends StatelessWidget {
 }
 
 class LandscapeRecipeDetails extends StatelessWidget {
+
   const LandscapeRecipeDetails({
+  LandscapeRecipeDetails({
+
     super.key,
     required this.recipe,
     required RatingDialog dialog,
@@ -300,6 +324,11 @@ class LandscapeRecipeDetails extends StatelessWidget {
 
   final RecipeModel? recipe;
   final RatingDialog _dialog;
+
+
+
+  DatabaseFirebase _dbFavs = DatabaseFirebase(2);
+  FavsModel? favsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +378,6 @@ class LandscapeRecipeDetails extends StatelessWidget {
                           // show the dialog
                           showDialog(
                             context: context,
-                            
                             barrierDismissible:
                                 true, // set to false if you want to force a rating
                             builder: (context) => _dialog,
@@ -451,7 +479,10 @@ class LandscapeRecipeDetails extends StatelessWidget {
                                 Text(
                                   'Ingredientes',
                                   style: TextStyle(
+
                                       fontSize: 25, fontWeight: FontWeight.bold),
+
+
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -463,6 +494,7 @@ class LandscapeRecipeDetails extends StatelessWidget {
                                   'Instrucciones',
                                   style: TextStyle(
                                       fontSize: 25, fontWeight: FontWeight.bold),
+
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -472,42 +504,60 @@ class LandscapeRecipeDetails extends StatelessWidget {
                                 const SizedBox(height: 20),
                                 Center(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      // ...código anterior...
-                  
                                       const SizedBox(height: 20),
-                  
-                                      ElevatedButton.icon(
-                                        onPressed: () {
-                                          // Lógica para agregar a favoritos
-                                        },
-                                        style: ButtonStyle(
-                                          elevation:
-                                              MaterialStateProperty.all(10),
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.orangeAccent),
-                                          shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                          ),
-                                          minimumSize: MaterialStateProperty.all(
-                                              Size(200, 50)),
-                                          // Ajusta el tamaño aquí
-                                        ),
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: Colors.white,
-                                        ),
-                                        label: Text(
-                                          'Agregar a favoritos',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
+                                      StreamBuilder(
+                                          stream: _dbFavs
+                                              .getOwnRecipes('ahsoudhsa'),
+                                          builder: (context, snapshot) {
+                                            if (!snapshot.hasData) {
+                                              _dbFavs.insertDocument({
+                                                'idUsuario': 'HJDHSA',
+                                                'recetas': [],
+                                              });
+                                            }
+                                            favsModel =
+                                                FavsModel.fromQuerySnapshot(
+                                                    snapshot.data!.docs[0]);
+                                            if (favsModel!.recetas!
+                                                .contains('')) {}
+                                            return ElevatedButton.icon(
+                                              onPressed: () async {},
+                                              style: ButtonStyle(
+                                                elevation:
+                                                    MaterialStateProperty.all(
+                                                        10),
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.orangeAccent),
+                                                shape:
+                                                    MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                ),
+                                                minimumSize:
+                                                    MaterialStateProperty.all(
+                                                        Size(200, 50)),
+                                                // Ajusta el tamaño aquí
+                                              ),
+                                              icon: Icon(
+                                                Icons.favorite,
+                                                color: Colors.white,
+                                              ),
+                                              label: Text(
+                                                'Agregar a favoritos',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            );
+                                          }),
                                     ],
                                   ),
                                 ),
