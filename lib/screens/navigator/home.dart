@@ -33,55 +33,49 @@ class HomePage extends GetView<HomeController> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
                       children: [
-                        Text(
-                          'Hello',
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.orangeAccent,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                offset: Offset(2.0, 2.0),
-                              ),
-                            ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Hello',
+                            style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orangeAccent,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  offset: Offset(2.0, 2.0),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Text(
-                          userCredential.user!.providerData[0].displayName
-                              .toString()
-                              .split(' ')[0],
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Colors.black.withOpacity(0.6),
-                                offset: Offset(2.0, 2.0),
-                              ),
-                            ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            userCredential.user!.providerData[0].displayName
+                                .toString()
+                                .split(' ')[0],
+                            style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.black.withOpacity(0.6),
+                                  offset: Offset(2.0, 2.0),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/search');
-                        },
-                        icon: Icon(Icons.search),
-                      ),
                     ),
                   ],
                 ),
@@ -107,15 +101,16 @@ class HomePage extends GetView<HomeController> {
                             ),
                           ),
                         ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: Image.network(
-                            'https://images.pexels.com/photos/4146123/pexels-photo-4146123.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        )
+                        FutureBuilder(
+                          future: ,
+                          builder: (context, snapshot) {
+                            return RecipeWidget(
+                              recipeModel: snapshot, 
+                              docId: snapshot.id, 
+                              userCredential: userCredential
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -187,8 +182,8 @@ class HomePage extends GetView<HomeController> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/listall', arguments: {
-                      'user':userCredential});
+                    Navigator.pushNamed(context, '/listall',
+                        arguments: {'user': userCredential});
                   },
                   child: const Text(
                     'Ver todo!',
