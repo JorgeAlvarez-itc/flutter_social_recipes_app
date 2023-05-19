@@ -216,6 +216,7 @@ class HomePage extends GetView<HomeController> {
                                 return RecipeWidget(
                                   recipeModel: aux,
                                   docId: snapshot!.data!.docs[index].id,
+                                  userCredential: userCredential,
                                 );
                               },
                             );

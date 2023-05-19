@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/models/recipe_model.dart';
 
 class RecipeWidget extends StatelessWidget {
-  RecipeWidget({Key? key, required this.recipeModel, required this.docId});
+  RecipeWidget({Key? key, required this.recipeModel, required this.docId, required this.userCredential});
   RecipeModel? recipeModel;
   String? docId;
+  UserCredential? userCredential;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,6 +16,7 @@ class RecipeWidget extends StatelessWidget {
           Navigator.pushNamed(context, '/details', arguments: {
             'recipe': recipeModel,
             'id': docId,
+            'user':userCredential,
           });
         },
         child: Card(

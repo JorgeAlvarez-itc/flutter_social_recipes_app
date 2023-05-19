@@ -63,6 +63,7 @@ class ListOwnRecipes extends StatelessWidget {
                               RecipeWidget(
                                 recipeModel: aux,
                                 docId: snapshot!.data!.docs[index].id,
+                                userCredential: userCredential,
                               ),
                               Positioned(
                                 top: 10,

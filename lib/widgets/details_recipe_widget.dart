@@ -1,16 +1,20 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:recetas/models/favs_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:recetas/models/recipe_model.dart';
 import 'package:recetas/firebase/firebase_db.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:recetas/responsive/responsive.dart';
+import 'package:recetas/widgets/loading_widget.dart';
 
 class DetailsRecipeScreen extends StatelessWidget {
   RecipeModel? recipe;
   String? id;
   DetailsRecipeScreen({Key? key, this.recipe}) : super(key: key);
   DatabaseFirebase _dbReci = DatabaseFirebase(0);
+  DatabaseFirebase _dbFavs = DatabaseFirebase(2);
   FavsModel? favsModel;
 
   @override
@@ -19,6 +23,7 @@ class DetailsRecipeScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     recipe = args['recipe'] as RecipeModel;
     id = args['id'] as String;
+    final UserCredential userCredential = args['user'] as UserCredential;
     print(args);
     final _dialog = RatingDialog(
       initialRating: 0.0,
@@ -69,16 +74,17 @@ class DetailsRecipeScreen extends StatelessWidget {
       body: Stack(
         children: [
           Responsive(
-              mobile: _buildMobileRecipe(context, _dialog),
-              tablet: _buildLanscapeRecipe(context, _dialog),
-              desktop: _buildLanscapeRecipe(context, _dialog),
+            mobile: _buildMobileRecipe(context, _dialog, userCredential),
+            tablet: _buildLanscapeRecipe(context, _dialog, userCredential),
+            desktop: _buildLanscapeRecipe(context, _dialog, userCredential),
           )
         ],
       ),
     );
   }
 
-  _buildMobileRecipe(BuildContext context, RatingDialog _dialog) {
+  _buildMobileRecipe(BuildContext context, RatingDialog _dialog,
+      UserCredential userCredential) {
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -230,47 +236,7 @@ class DetailsRecipeScreen extends StatelessWidget {
                               style: TextStyle(fontSize: 15),
                             ),
                             const SizedBox(height: 20),
-                            Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // ...código anterior...
-
-                                  const SizedBox(height: 20),
-
-                                  ElevatedButton.icon(
-                                    onPressed: () {
-                                      // Lógica para agregar a favoritos
-                                    },
-                                    style: ButtonStyle(
-                                      elevation: MaterialStateProperty.all(10),
-
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.orangeAccent),
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                      ),
-                                      minimumSize: MaterialStateProperty.all(
-                                          Size(200, 50)),
-                                      // Ajusta el tamaño aquí
-                                    ),
-                                    icon: Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                    ),
-                                    label: Text(
-                                      'Agregar a favoritos',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            _buildAddFavsButton(userCredential),
                           ],
                         ),
                       ],
@@ -285,7 +251,8 @@ class DetailsRecipeScreen extends StatelessWidget {
     );
   }
 
-  _buildLanscapeRecipe(BuildContext context, RatingDialog _dialog) {
+  _buildLanscapeRecipe(BuildContext context, RatingDialog _dialog,
+      UserCredential userCredential) {
     return Row(
       children: [
         Expanded(
@@ -439,42 +406,7 @@ class DetailsRecipeScreen extends StatelessWidget {
                                 style: TextStyle(fontSize: 15),
                               ),
                               const SizedBox(height: 20),
-                              Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    ElevatedButton.icon(
-                                      onPressed: () async {},
-                                      style: ButtonStyle(
-                                        elevation:
-                                            MaterialStateProperty.all(10),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.orangeAccent),
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                          ),
-                                        ),
-                                        minimumSize: MaterialStateProperty.all(
-                                            Size(200, 50)),
-                                        // Ajusta el tamaño aquí
-                                      ),
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: Colors.white,
-                                      ),
-                                      label: Text(
-                                        'Agregar a favoritos',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              _buildAddFavsButton(userCredential),
                             ],
                           ),
                         ],
@@ -487,6 +419,107 @@ class DetailsRecipeScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  _buildAddFavsButton(UserCredential userCredential) {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          StreamBuilder(
+            stream: _dbFavs.getFavoriteRecipes('jtH17GWxEqh297XnSsGL6SU5tCl1'),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return LoadingWidget();
+              } else if (snapshot.hasError) {
+                return LoadingWidget();
+              } else if (snapshot.hasData) {
+                FavsModel favs =
+                    FavsModel.fromQuerySnapshot(snapshot.data!.docs[0]);
+                return FutureBuilder(
+                  future: _dbReci.getRecipesFromIds(favs.recetas!),
+                  builder: (context, snapshot1) {
+                    if (snapshot1.connectionState == ConnectionState.waiting) {
+                      return LoadingWidget();
+                    } 
+                    List<String> recipeIds = snapshot1.data
+                            ?.map((recipe) => recipe.id ?? '')
+                            .toList() ??
+                        [];
+                    return ElevatedButton.icon(
+                      onPressed: () {
+                        if (recipeIds.contains(id)) {
+                          AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.infoReverse,
+                              title: 'Confirmar',
+                              desc:
+                                  '¿Desea eliminar esta receta de sus favoritos?',
+                              animType: AnimType.bottomSlide,
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {
+                                recipeIds.remove(id);
+                                _dbFavs.updateDocument({
+                                  'idUsuario': userCredential.user!.uid,
+                                  'recetas': recipeIds
+                                }, snapshot.data!.docs[0].id);
+                              }).show();
+                        } else {
+                          recipeIds.add(id!);
+                          _dbFavs.updateDocument({
+                            'idUsuario': userCredential.user!.uid,
+                            'recetas': recipeIds
+                          }, snapshot.data!.docs[0].id).then(
+                            (value) {
+                              AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.success,
+                                      title: 'Agregado con éxito',
+                                      desc: 'Se ha agregado correctamente a la lista de favoritos',
+                                      animType: AnimType.bottomSlide,
+                                      btnOkOnPress: (){}
+                                      )
+                                  .show();
+                            },
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(10),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.orangeAccent),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(Size(200, 50)),
+                      ),
+                      icon: Icon(
+                        recipeIds.contains(id)
+                            ? Icons.heart_broken
+                            : Icons.favorite,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        recipeIds.contains(id)
+                            ? 'Eliminar de favoritos'
+                            : 'Agregar a favoritos',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return LoadingWidget();
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

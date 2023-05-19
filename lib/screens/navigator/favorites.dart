@@ -52,6 +52,7 @@ class FavScreen extends StatelessWidget {
                           child: RecipeWidget(
                             recipeModel: snapshot1.data![index],
                             docId: snapshot1.data![index].id,
+                            userCredential: userCredential,
                           ),
                         ),
                         Positioned(
