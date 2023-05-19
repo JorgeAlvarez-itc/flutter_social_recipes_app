@@ -21,4 +21,11 @@ class FavsModel {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'idUsuario': idUsuario,
+      'recetas': recetas,
+    };
+  }
+
 }

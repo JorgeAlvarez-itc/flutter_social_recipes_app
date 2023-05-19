@@ -1,13 +1,17 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:recetas/models/favs_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:recetas/firebase/firebase_db.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FirebaseAuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-   final FacebookAuth facebookAuth = FacebookAuth.instance;
+  final FacebookAuth facebookAuth = FacebookAuth.instance;
+  final DatabaseFirebase _dbFavs = DatabaseFirebase(2);
 
   Future<bool> registerWithEmailAndPassword(
       {required String email,
@@ -44,28 +48,12 @@ class FirebaseAuthMethods {
       print(pass.toString());
       await usuario.user!.updatePhotoURL(url);
       await usuario.user!.reload();
-      UserCredential? userUpdated = await signInWithEmailAndPassword(email: usuario.user!.email.toString(), password: pass.toString());
+      UserCredential? userUpdated = await signInWithEmailAndPassword(
+          email: usuario.user!.email.toString(), password: pass.toString());
       return userUpdated!;
     } catch (e) {
       print(e);
       return usuario;
-    }
-  }
-
-  Future<UserCredential?> signInWithCredential(
-      AuthCredential? credential) async {
-    try {
-      print(credential);
-      if (credential != null) {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        return userCredential;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('Error signing in with credential: $e');
-      return null;
     }
   }
 
@@ -79,8 +67,7 @@ class FirebaseAuthMethods {
       var cred =
           EmailAuthProvider.credentialWithLink(email: email, emailLink: email);
       print('User logged in: ${userCredential.user}');
-      //userCredential.user!.linkWithCredential(cred);
-      //print(cred);
+      loadFavs(userCredential);
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -121,6 +108,7 @@ class FirebaseAuthMethods {
       );
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
+      loadFavs(userCredential);
       return userCredential;
     } catch (e) {
       print(e);
@@ -155,7 +143,6 @@ class FirebaseAuthMethods {
     }
   }
 
-  
   Future<UserCredential?> signInWithFacebook() async {
     this.signOut();
     try {
@@ -166,14 +153,13 @@ class FirebaseAuthMethods {
             FacebookAuthProvider.credential(accessToken.token);
         final UserCredential userCredential =
             await _auth.signInWithCredential(credential);
-        print('User login: ${userCredential.user}');
-       
+        loadFavs(userCredential);
         return userCredential;
       } else {
         return null;
       }
     } catch (e) {
-        return null;
+      return null;
     }
   }
 
@@ -202,15 +188,27 @@ class FirebaseAuthMethods {
         return 3;
       }
     } catch (e) {
-      if(e.toString().contains('already')){
+      if (e.toString().contains('already')) {
         return 2;
-      }else{
+      } else {
         return 3;
       }
     }
   }
 
-
+  Future<void> loadFavs(UserCredential credential) async {
+    String userId = credential.user!.uid;
+    Stream favsStream = _dbFavs.getFavoriteRecipes(userId);
+    favsStream.listen((event) {
+      if(event.docs.isNotEmpty){
+        print('Ya tienes cositas');
+      }else{
+        FavsModel newFavsModel= FavsModel(idUsuario: userId,recetas: []);
+        _dbFavs.insertDocument(newFavsModel.toMap());
+        print('Acabas de insertar un doc a favs');
+      }
+    });
+  }
 
   Future<void> signOut() async {
     try {

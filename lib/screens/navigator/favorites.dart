@@ -92,7 +92,26 @@ class FavScreen extends StatelessWidget {
               } else if (snapshot1.connectionState == ConnectionState.waiting) {
                 return const LoadingWidget();
               } else {
-                return Text('Error al cargar los datos');
+                return Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        'https://img.icons8.com/?size=512&id=2ktEoAjSYwq4&format=png',
+                        width: 200,
+                        height: 200,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Aún no has agregado recetas a favoritos',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               }
             },
           );

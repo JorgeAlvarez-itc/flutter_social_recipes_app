@@ -429,7 +429,7 @@ class DetailsRecipeScreen extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           StreamBuilder(
-            stream: _dbFavs.getFavoriteRecipes('jtH17GWxEqh297XnSsGL6SU5tCl1'),
+            stream: _dbFavs.getFavoriteRecipes(userCredential.user!.uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return LoadingWidget();
