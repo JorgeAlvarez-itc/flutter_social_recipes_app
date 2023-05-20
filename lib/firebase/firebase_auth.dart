@@ -3,6 +3,7 @@ import 'package:crypto/crypto.dart';
 import 'package:recetas/models/favs_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/firebase/firebase_db.dart';
+import 'package:recetas/models/suggest_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -12,6 +13,7 @@ class FirebaseAuthMethods {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FacebookAuth facebookAuth = FacebookAuth.instance;
   final DatabaseFirebase _dbFavs = DatabaseFirebase(2);
+  final DatabaseFirebase _dbSuggest = DatabaseFirebase(3);
 
   Future<bool> registerWithEmailAndPassword(
       {required String email,
@@ -68,6 +70,7 @@ class FirebaseAuthMethods {
           EmailAuthProvider.credentialWithLink(email: email, emailLink: email);
       print('User logged in: ${userCredential.user}');
       loadFavs(userCredential);
+      loadSuggest(userCredential);
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -154,6 +157,7 @@ class FirebaseAuthMethods {
         final UserCredential userCredential =
             await _auth.signInWithCredential(credential);
         loadFavs(userCredential);
+        loadSuggest(userCredential);
         return userCredential;
       } else {
         return null;
@@ -206,6 +210,18 @@ class FirebaseAuthMethods {
         FavsModel newFavsModel= FavsModel(idUsuario: userId,recetas: []);
         _dbFavs.insertDocument(newFavsModel.toMap());
         print('Acabas de insertar un doc a favs');
+      }
+    });
+  }
+
+  Future<void> loadSuggest(UserCredential credential) async{
+    String userId = credential.user!.uid;
+    Stream suggestStream = _dbSuggest.getSuggestCategories(userId);
+    suggestStream.listen((event) {
+      if(event.docs.isNotEmpty){
+      }else{
+        SuggestModel newSuggestModel= SuggestModel(idUsuario: userId,categorias: []);
+        _dbSuggest.insertDocument(newSuggestModel.toMap());
       }
     });
   }

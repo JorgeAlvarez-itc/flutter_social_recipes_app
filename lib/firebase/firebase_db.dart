@@ -9,7 +9,7 @@ class DatabaseFirebase {
 
   DatabaseFirebase(int index) {
     _fire = FirebaseFirestore.instance;
-    _collections = ['recetas', 'categorias', 'favoritos'];
+    _collections = ['recetas', 'categorias', 'favoritos', 'sugerencias'];
     _currentCollection = _fire!.collection(_collections[index]);
   }
 
@@ -35,6 +35,21 @@ class DatabaseFirebase {
     return _currentCollection.where('idUsuario', isEqualTo: userId).snapshots();
   }
 
+  Stream<QuerySnapshot> getSuggestCategories(String userId) {
+    return _currentCollection.where('idUsuario', isEqualTo: userId).snapshots();
+  }
+
+  Future<List<CategoryModel>> getAllCategories() async {
+    QuerySnapshot snapshot = await _fire!.collection('categorias').get();
+
+    List<CategoryModel> categories = [];
+    for (QueryDocumentSnapshot document in snapshot.docs) {
+      CategoryModel category = CategoryModel.fromQuerySnapshot(document);
+      categories.add(category);
+    }
+    return categories;
+  }
+
   Future<List<RecipeModel>> getRecipesFromIds(List<String> recipeIds) async {
     QuerySnapshot snapshot = await _fire!
         .collection('recetas')
@@ -47,17 +62,6 @@ class DatabaseFirebase {
       recipes.add(recipe);
     }
     return recipes;
-  }
-
-  Future<List<CategoryModel>> getAllCategories() async {
-    QuerySnapshot snapshot = await _fire!.collection('categorias').get();
-
-    List<CategoryModel> categories = [];
-    for (QueryDocumentSnapshot document in snapshot.docs) {
-      CategoryModel category = CategoryModel.fromQuerySnapshot(document);
-      categories.add(category);
-    }
-    return categories;
   }
 
   Stream<QuerySnapshot> getAllRecipesByCat(String idCat) {
