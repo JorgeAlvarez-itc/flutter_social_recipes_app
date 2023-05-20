@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/firebase/firebase_db.dart';
 import 'package:recetas/models/category_model.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
+import 'package:recetas/widgets/loading_widget.dart';
 import 'package:recetas/widgets/categories_widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -102,13 +103,34 @@ class HomePage extends GetView<HomeController> {
                           ),
                         ),
                         FutureBuilder(
-                          future: ,
+                          future: _dbReci.getRecipeWithHighestRating(),
                           builder: (context, snapshot) {
-                            return RecipeWidget(
-                              recipeModel: snapshot, 
-                              docId: snapshot.id, 
-                              userCredential: userCredential
-                            );
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return LoadingWidget();
+                            } else if (snapshot.hasError) {
+                              return LoadingWidget();
+                            } else {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/details',
+                                        arguments: {
+                                          'recipe': snapshot.data,
+                                          'id': snapshot.data!.id,
+                                          'user': userCredential,
+                                        });
+                                  },
+                                  child: Image.network(
+                                    snapshot.data!.foto!,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            }
                           },
                         ),
                       ],

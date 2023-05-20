@@ -12,6 +12,20 @@ class DatabaseFirebase {
     _currentCollection = _fire!.collection(_collections[index]);
   }
 
+  Future<RecipeModel?> getRecipeWithHighestRating() async {
+    QuerySnapshot snapshot = await _currentCollection
+        .orderBy('calificacion', descending: true)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      QueryDocumentSnapshot document = snapshot.docs.first;
+      return RecipeModel.fromQuerySnapshot(document);
+    }
+
+    return null;
+  }
+
   Stream<QuerySnapshot> getOwnRecipes(String uid) {
     return _currentCollection.where('idUsuario', isEqualTo: uid).snapshots();
   }
