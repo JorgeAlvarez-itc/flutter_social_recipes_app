@@ -1,71 +1,93 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/firebase/firebase_db.dart';
-import 'package:recetas/widgets/categories_widget.dart';
-import 'package:recetas/controllers/general_controller.dart';
+import 'package:recetas/models/suggest_model.dart';
+import 'package:recetas/widgets/loading_widget.dart';
 
 class AdmonSuggestScreen extends StatelessWidget {
   AdmonSuggestScreen({Key? key});
-  final GeneralController generalController = Get.put(GeneralController());
+  final DatabaseFirebase _dbSuggest = DatabaseFirebase(3);
+  final DatabaseFirebase _dbCat = DatabaseFirebase(1);
   @override
   Widget build(BuildContext context) {
-    final DatabaseFirebase _dbCat = DatabaseFirebase(0);
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final UserCredential userCredential = args['user'] as UserCredential;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sugerencias', style: TextStyle(color: Colors.black)),
-        centerTitle: true,
         backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text(
+          'Selecciona las categorias que son de tu agrado',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
-      body: FutureBuilder(
-        future: _dbCat.getAllCategories(),
+      body: StreamBuilder(
+        stream: _dbSuggest.getSuggestCategories(userCredential.user!.uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error al cargar las categorías'),
-            );
-          } else if (snapshot.hasData) {
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return Obx(() {
-                  bool isSelected = generalController.isLoading.value;
-                  return GestureDetector(
-                    onTap: () {
-                      generalController.changeLoadingView();
-                    },
-                    child: Container(
-                      // Personaliza el estilo del container según tus necesidades
-                      color: isSelected ? Colors.orangeAccent : Colors.white,
-                      child: CategoryWidget(
-                          categoryModel: snapshot.data![index],
-                          userCredential: userCredential),
-                    ),
-                  );
-                }); // Aquí debes definir la lógica para determinar si la categoría está seleccionada o no
-              },
-            );
-          } else {
-            return Center(
-              child: Text('No hay categorías disponibles'),
-            );
+            return LoadingWidget(); // Reemplaza LoadingWidget con el widget de carga que desees mostrar
           }
+          if (snapshot.hasError) {
+            return Text(
+                'Error: ${snapshot.error}'); // Reemplaza con el manejo de error que desees mostrar
+          }
+          SuggestModel aux =
+              SuggestModel.fromQuerySnapshot(snapshot.data!.docs[0]);
+          return FutureBuilder(
+            future: _dbCat.getAllCategories(),
+            builder: (context, categorias) {
+              if (categorias.connectionState == ConnectionState.waiting) {
+                return LoadingWidget(); // Reemplaza LoadingWidget con el widget de carga que desees mostrar
+              }
+              if (categorias.hasError) {
+                return Text(
+                    'Error: ${categorias.error}'); // Reemplaza con el manejo de error que desees mostrar
+              }
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: categorias.data!.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(categorias.data![index].categoria!),
+                          trailing: Checkbox(
+                            value: aux.categorias!
+                                .contains(categorias.data![index].id),
+                            onChanged: (value) {
+                              if (value!) {
+                                aux.categorias!
+                                    .add(categorias.data![index].id!);
+                              } else {
+                                aux.categorias!
+                                    .remove(categorias.data![index].id!);
+                              }
+                              _dbSuggest.updateDocument(
+                                  aux.toMap(), snapshot.data!.docs[0].id);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                ],
+              );
+            },
+          );
         },
       ),
     );

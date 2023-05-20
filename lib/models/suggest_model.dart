@@ -21,4 +21,11 @@ class SuggestModel {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'idUsuario': idUsuario,
+      'categorias': categorias,
+    };
+  }
+
 }
