@@ -8,13 +8,14 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _isDarkModeEnabled = false;
     String? password;
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isEmailAccount = args['isEmailAccount'] ?? false;
     final UserCredential userCredential = args['user'] as UserCredential;
-    if(args['password']!=null){
-      password= args['password'] as String;
+    if (args['password'] != null) {
+      password = args['password'] as String;
     }
     Awesome awesome = Awesome();
     return Scaffold(
@@ -56,7 +57,9 @@ class AccountScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  userCredential.user!.providerData[0].displayName.toString().toUpperCase(),
+                  userCredential.user!.providerData[0].displayName
+                      .toString()
+                      .toUpperCase(),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -65,7 +68,9 @@ class AccountScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  userCredential.user!.providerData[0].email.toString().toUpperCase(),
+                  userCredential.user!.providerData[0].email
+                      .toString()
+                      .toUpperCase(),
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -94,7 +99,7 @@ class AccountScreen extends StatelessWidget {
                             Navigator.pushNamed(context, '/edit', arguments: {
                               'user': userCredential,
                               'isEmailAccount': isEmailAccount,
-                              'pass':password,
+                              'pass': password,
                             });
                           },
                         ),
@@ -103,7 +108,7 @@ class AccountScreen extends StatelessWidget {
                           leading: Icon(Icons.microwave_outlined),
                           title: Text('My recipes'),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: (){
+                          onTap: () {
                             Navigator.pushNamed(context, '/own', arguments: {
                               'user': userCredential,
                             });
@@ -114,7 +119,7 @@ class AccountScreen extends StatelessWidget {
                           leading: Icon(Icons.settings),
                           title: Text('Administrar sugerencias'),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: (){
+                          onTap: () {
                             Navigator.pushNamed(context, '/admon', arguments: {
                               'user': userCredential,
                             });
@@ -140,6 +145,32 @@ class AccountScreen extends StatelessWidget {
                               print(value);
                             });
                           },
+                        ),
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                _isDarkModeEnabled ? 'Modo oscuro' : 'Modo claro',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Switch(
+                                value: _isDarkModeEnabled,
+                                onChanged: (value) {
+                                  
+                                  // Aquí puedes realizar la lógica para cambiar el tema de la aplicación
+                                },
+                              ),
+                              Icon(
+                                _isDarkModeEnabled
+                                    ? Icons.nightlight_round
+                                    : Icons.wb_sunny,
+                                size: 24,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

@@ -56,35 +56,52 @@ class AdmonSuggestScreen extends StatelessWidget {
                 return Text(
                     'Error: ${categorias.error}'); // Reemplaza con el manejo de error que desees mostrar
               }
-              return Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: categorias.data!.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(categorias.data![index].categoria!),
-                          trailing: Checkbox(
-                            value: aux.categorias!
-                                .contains(categorias.data![index].id),
+              return GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 0.9,
+                children: categorias.data!.map((categoria) {
+                  return Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            categoria.urlFoto.toString(),
+                            height: 120,
+                            //width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              categoria.categoria.toString(),
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Switch(
+                            value: aux.categorias!.contains(categoria.id),
                             onChanged: (value) {
-                              if (value!) {
-                                aux.categorias!
-                                    .add(categorias.data![index].id!);
+                              if (value) {
+                                aux.categorias!.add(categoria.id!);
                               } else {
-                                aux.categorias!
-                                    .remove(categorias.data![index].id!);
+                                aux.categorias!.remove(categoria.id!);
                               }
                               _dbSuggest.updateDocument(
                                   aux.toMap(), snapshot.data!.docs[0].id);
                             },
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                ],
+                  );
+                }).toList(),
               );
             },
           );
