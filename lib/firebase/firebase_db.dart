@@ -1,4 +1,5 @@
 import 'package:recetas/models/recipe_model.dart';
+import 'package:recetas/models/category_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseFirebase {
@@ -46,6 +47,17 @@ class DatabaseFirebase {
       recipes.add(recipe);
     }
     return recipes;
+  }
+
+  Future<List<CategoryModel>> getAllCategories() async {
+    QuerySnapshot snapshot = await _fire!.collection('categorias').get();
+
+    List<CategoryModel> categories = [];
+    for (QueryDocumentSnapshot document in snapshot.docs) {
+      CategoryModel category = CategoryModel.fromQuerySnapshot(document);
+      categories.add(category);
+    }
+    return categories;
   }
 
   Stream<QuerySnapshot> getAllRecipesByCat(String idCat) {

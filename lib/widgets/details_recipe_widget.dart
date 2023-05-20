@@ -62,7 +62,8 @@ class DetailsRecipeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Recipe',
+        centerTitle: true,
+        title: Text(recipe!.nombre!,
             textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),

@@ -111,6 +111,17 @@ class AccountScreen extends StatelessWidget {
                         ),
                         Divider(),
                         ListTile(
+                          leading: Icon(Icons.settings),
+                          title: Text('Administrar sugerencias'),
+                          trailing: Icon(Icons.arrow_forward_ios),
+                          onTap: (){
+                            Navigator.pushNamed(context, '/admon', arguments: {
+                              'user': userCredential,
+                            });
+                          },
+                        ),
+                        Divider(),
+                        ListTile(
                           leading: Icon(Icons.logout),
                           title: Text('Logout'),
                           trailing: Icon(Icons.arrow_forward_ios),
