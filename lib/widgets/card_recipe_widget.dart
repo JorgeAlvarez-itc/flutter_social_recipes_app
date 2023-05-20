@@ -1,8 +1,10 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:recetas/models/recipe_model.dart';
 
 class CardRecipeWidget extends StatelessWidget {
-  const CardRecipeWidget({Key? key}) : super(key: key);
+  CardRecipeWidget({Key? key, required this.recipeModel});
+  RecipeModel? recipeModel;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class CardRecipeWidget extends StatelessWidget {
               children: [
                 ClipRRect(
                   child: Image.network(
-                    'https://www.cocinacaserayfacil.net/wp-content/uploads/2019/11/Recetas-de-carnes.jpg',
+                    recipeModel!.foto!,
                     fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width * 0.94,
                     height:MediaQuery.of(context).size.height * 0.94,
@@ -28,7 +30,7 @@ class CardRecipeWidget extends StatelessWidget {
                       bottom: Radius.circular(15)
                     ),
                     child: Image.network(
-                      'https://www.cocinacaserayfacil.net/wp-content/uploads/2019/11/Recetas-de-carnes.jpg',
+                      recipeModel!.foto!,
                       fit: BoxFit.contain,
                       width: MediaQuery.of(context).size.width * 0.94,
                     ),
@@ -47,7 +49,7 @@ class CardRecipeWidget extends StatelessWidget {
                     Icon(Icons.access_time, color: Colors.grey),
                     SizedBox(width: 4.0),
                     Text(
-                      '45 minutes',
+                      recipeModel!.tiempo!,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12.0,
@@ -58,7 +60,7 @@ class CardRecipeWidget extends StatelessWidget {
                     Icon(Icons.fireplace, color: Colors.grey),
                     SizedBox(width: 4.0),
                     Text(
-                      '155 cal',
+                      recipeModel!.calorias!.toString(),
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12.0,
@@ -74,7 +76,7 @@ class CardRecipeWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
             child: Text(
-              'NOMBRE DE LA RECETA',
+              recipeModel!.nombre!,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18.0,

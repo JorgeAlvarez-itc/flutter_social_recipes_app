@@ -242,7 +242,7 @@ class HomePage extends GetView<HomeController> {
                                   return const LoadingWidget();
                                 } else if (recetas.connectionState ==
                                     ConnectionState.waiting) {
-                                  const LoadingWidget();
+                                  return const LoadingWidget();
                                 }
                                 return ListView.builder(
                                   scrollDirection: Axis.horizontal,
