@@ -223,7 +223,7 @@ class HomePage extends GetView<HomeController> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 150,
+                    height: 165,
                     child: StreamBuilder(
                         stream: _dbReci.getAllDocuments(),
                         builder: (context, snapshot) {

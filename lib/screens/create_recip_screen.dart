@@ -333,14 +333,6 @@ class _CreateRecipScreenState extends State<CreateRecipScreen> {
                     SizedBox(height: 10.0),
                     Row(
                       children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: txtVideo,
-                            decoration: InputDecoration(
-                              labelText: 'URL Video',
-                            ),
-                          ),
-                        ),
                         SizedBox(width: 10.0),
                         Expanded(
                           child: Obx(() => DropdownButtonFormField<String>(

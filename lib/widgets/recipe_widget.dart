@@ -21,7 +21,7 @@ class RecipeWidget extends StatelessWidget {
         },
         //disenio
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 15),
           child: Card(
             elevation: 5,
             child: Row(
@@ -55,7 +55,7 @@ class RecipeWidget extends StatelessWidget {
                           recipeModel!.nombre.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
+                            fontSize: 12.0,
                           ),
                         ),
                         SizedBox(height: 8.0),
