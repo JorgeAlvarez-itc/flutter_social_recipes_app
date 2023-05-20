@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../controllers/home_controller.dart';
 import 'package:recetas/models/recipe_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:recetas/models/suggest_model.dart';
 import 'package:recetas/firebase/firebase_db.dart';
 import 'package:recetas/models/category_model.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
@@ -18,6 +19,7 @@ class HomePage extends GetView<HomeController> {
     final UserCredential userCredential = args['user'] as UserCredential;
     DatabaseFirebase _dbCat = DatabaseFirebase(1);
     DatabaseFirebase _dbReci = DatabaseFirebase(0);
+    DatabaseFirebase _dbSuggest = DatabaseFirebase(3);
 
     return SingleChildScrollView(
       child: Column(
@@ -225,19 +227,34 @@ class HomePage extends GetView<HomeController> {
                   child: SizedBox(
                     height: 165,
                     child: StreamBuilder(
-                        stream: _dbReci.getAllDocuments(),
+                        stream: _dbSuggest
+                            .getSuggestCategories(userCredential.user!.uid),
                         builder: (context, snapshot) {
+                          SuggestModel aux = SuggestModel.fromQuerySnapshot(
+                              snapshot.data!.docs[0]);
                           if (snapshot.hasData) {
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                RecipeModel aux = RecipeModel.fromQuerySnapshot(
-                                    snapshot.data!.docs[index]);
-                                return RecipeWidget(
-                                  recipeModel: aux,
-                                  docId: snapshot!.data!.docs[index].id,
-                                  userCredential: userCredential,
+                            return FutureBuilder(
+                              future: aux.categorias!.isNotEmpty
+                                  ? _dbReci.getAllRecipSuggest(aux.categorias)
+                                  : _dbReci.getAllRecipes(),
+                              builder: (context, recetas) {
+                                if (recetas.hasError) {
+                                  return const LoadingWidget();
+                                } else if (recetas.connectionState ==
+                                    ConnectionState.waiting) {
+                                  const LoadingWidget();
+                                }
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: recetas.data!.length,
+                                  itemBuilder: (context, index) {
+                                    RecipeModel aux = recetas.data![index];
+                                    return RecipeWidget(
+                                      recipeModel: aux,
+                                      docId: aux.id,
+                                      userCredential: userCredential,
+                                    );
+                                  },
                                 );
                               },
                             );

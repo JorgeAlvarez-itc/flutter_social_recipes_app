@@ -85,4 +85,41 @@ class DatabaseFirebase {
   Future<void> deleteDocument(String id) async {
     return _currentCollection.doc(id).delete();
   }
+
+  Future<List<RecipeModel>> getAllRecipSuggest(List<String>? categorias) async {
+    List<RecipeModel> recipes = [];
+    if (categorias == null) return recipes;
+
+    for (String categoria in categorias) {
+      QuerySnapshot snapshot = await _fire!
+          .collection('recetas')
+          .where('idCategoria', isEqualTo: categoria)
+          .limit((5/categorias.length).ceil())
+          .get();
+
+      for (QueryDocumentSnapshot document in snapshot.docs) {
+        RecipeModel recipe = RecipeModel.fromQuerySnapshot(document);
+        recipes.add(recipe);
+      }
+    }
+
+    return recipes;
+  }
+
+  Future<List<RecipeModel>> getAllRecipes() async {
+    List<RecipeModel> recipes = [];
+
+    QuerySnapshot snapshot = await _fire!
+        .collection('recetas')
+        .orderBy('calificacion', descending: true)
+        .limit(5)
+        .get();
+
+    for (QueryDocumentSnapshot document in snapshot.docs) {
+      RecipeModel recipe = RecipeModel.fromQuerySnapshot(document);
+      recipes.add(recipe);
+    }
+
+    return recipes;
+  }
 }
