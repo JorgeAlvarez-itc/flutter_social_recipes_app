@@ -172,6 +172,7 @@ class HomePage extends GetView<HomeController> {
                         padding: const EdgeInsets.all(8.0),
                         child: CategoryWidget(
                           categoryModel: aux,
+                          userCredential: userCredential,
                         ),
                       );
                     },

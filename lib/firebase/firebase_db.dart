@@ -31,8 +31,9 @@ class DatabaseFirebase {
   }
 
   Stream<QuerySnapshot> getFavoriteRecipes(String userId) {
-   return _currentCollection.where('idUsuario', isEqualTo: userId).snapshots();
+    return _currentCollection.where('idUsuario', isEqualTo: userId).snapshots();
   }
+
   Future<List<RecipeModel>> getRecipesFromIds(List<String> recipeIds) async {
     QuerySnapshot snapshot = await _fire!
         .collection('recetas')
@@ -45,6 +46,12 @@ class DatabaseFirebase {
       recipes.add(recipe);
     }
     return recipes;
+  }
+
+  Stream<QuerySnapshot> getAllRecipesByCat(String idCat) {
+    return _currentCollection
+        .where('idCategoria', isEqualTo: idCat)
+        .snapshots();
   }
 
   Stream<QuerySnapshot> getAllDocuments() {

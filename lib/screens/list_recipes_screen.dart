@@ -5,23 +5,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/card_recipe_widget.dart';
 
-
-
 class ListAllrecipes extends StatelessWidget {
-  const ListAllrecipes({super.key});
-
+  ListAllrecipes({super.key});
+  String? idCat;
   @override
   Widget build(BuildContext context) {
     DatabaseFirebase _dbReci = DatabaseFirebase(0);
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final UserCredential userCredential = args['user'] as UserCredential;
+    if (args['idCat'] != null) {
+      idCat = args['idCat'] as String;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Observa todas las recetas',
-            textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        title: const Text('Recetas',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+            )),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
@@ -32,7 +37,9 @@ class ListAllrecipes extends StatelessWidget {
       body: Stack(
         children: [
           StreamBuilder(
-            stream: _dbReci.getAllDocuments(),
+            stream: idCat != null
+                ? _dbReci.getAllRecipesByCat(idCat!)
+                : _dbReci.getAllDocuments(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return OrientationBuilder(
@@ -51,7 +58,11 @@ class ListAllrecipes extends StatelessWidget {
                       itemBuilder: (context, index) {
                         RecipeModel aux = RecipeModel.fromQuerySnapshot(
                             snapshot.data!.docs[index]);
-                        return RecipeWidget(recipeModel: aux, docId: aux.id,userCredential: userCredential,);
+                        return RecipeWidget(
+                          recipeModel: aux,
+                          docId: aux.id,
+                          userCredential: userCredential,
+                        );
                       },
                     );
                   },
