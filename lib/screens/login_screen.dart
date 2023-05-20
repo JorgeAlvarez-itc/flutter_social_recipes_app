@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Welcome back',
+                      'Bienvenido',
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: txtEmailCont,
                       decoration: const InputDecoration(
-                        hintText: 'Email address',
+                        hintText: 'Email',
                         border: OutlineInputBorder(),
                       ),
                       validator: (value) {
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: txtPassCont,
                       obscureText: true,
                       decoration: const InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'Contraseña',
                         border: OutlineInputBorder(),
                       ),
                       validator: (value) {
@@ -165,16 +165,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 10),
                     _buildGooglebtn(),
                     const SizedBox(height: 10),
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Forgot password? '),
+                        const Text('¿Olvidaste tu contraseña?'),
                         TextButton(
                           onPressed: () {
                             _buildDialogRecover(context);
                           },
                           child: const Text(
-                            'Send password reset email',
+                            'Envía correo para recuperar',
                             style: TextStyle(
                               color: Colors.orangeAccent,
                               fontWeight: FontWeight.bold,
@@ -186,13 +186,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Don\'t have an account? '),
+                        const Text('¿No tienes cuenta?'),
                         TextButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/register');
                           },
                           child: const Text(
-                            'Sign up',
+                            'Registrar ahora!',
                             style: TextStyle(
                               color: Colors.orangeAccent,
                               fontWeight: FontWeight.bold,
@@ -233,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.white12,
                 ),
-                margin: EdgeInsets.only(right: 15,left: 15),
+                margin: EdgeInsets.only(right: 15,left: 15,bottom: 130),
                 //padding: EdgeInsets.all(16),
                 child: Form(
                   key: _formKey,
@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Welcome back',
+                        'Bienvenido',
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -252,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: txtEmailCont,
                         decoration: const InputDecoration(
-                          hintText: 'Email address',
+                          hintText: 'Email',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
@@ -269,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: txtPassCont,
                         obscureText: true,
                         decoration: const InputDecoration(
-                          hintText: 'Password',
+                          hintText: 'Contraseña',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
@@ -300,13 +300,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Forgot password? '),
+                      const Text('¿Olvidaste tu contraseña?'),
                       TextButton(
                         onPressed: () {
                           _buildDialogRecover(context);
                         },
                         child: const Text(
-                          'Send password reset email',
+                          'Enviar correo para recuperar',
                           style: TextStyle(
                             color: Colors.orangeAccent,
                             fontWeight: FontWeight.bold,
@@ -318,13 +318,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Don\'t have an account? '),
+                      const Text('¿No tienes cuenta?'),
                       TextButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/register');
                         },
                         child: const Text(
-                          'Sign up',
+                          'Registrar ahora!',
                           style: TextStyle(
                             color: Colors.orangeAccent,
                             fontWeight: FontWeight.bold,
@@ -351,7 +351,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           _submitForm();
         },
-        text: 'Login',
+        text: 'Iniciar sesión',
         backgroundColor: Colors.orangeAccent,
         borderRadius: 30.0,
       ),
@@ -373,7 +373,7 @@ class _LoginScreenState extends State<LoginScreen> {
             } else {}
           });
         },
-        text: 'Continue with Facebook',
+        text: 'Continuar con Facebook',
         fontSize: 12,
         borderRadius: 30.0,
       ),
@@ -395,7 +395,7 @@ class _LoginScreenState extends State<LoginScreen> {
             } else {}
           });
         },
-        text: 'Continue with Google',
+        text: 'Continuar con Google',
         fontSize: 12,
         borderRadius: 30.0,
       ),
@@ -409,21 +409,21 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Recover Password'),
+          title: const Text('Recuperar contraseña'),
           content: Form(
             key: _formKeyRec,
             child: TextFormField(
               controller: txtEmailRecovCont,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
-                hintText: 'Enter your email address',
+                hintText: 'Introduce tu email',
               ),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter your email address';
+                  return 'Por favor introduce tu correo';
                 } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                     .hasMatch(value)) {
-                  return 'Please enter a valid email address';
+                  return 'Introduce un email válido';
                 }
                 return null;
               },
@@ -434,7 +434,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('CANCEL'),
+              child: const Text('Cancelar'),
             ),
             TextButton(
               onPressed: () async {
@@ -447,7 +447,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                 }
               },
-              child: const Text('SEND EMAIL'),
+              child: const Text('Enviar correo'),
             ),
           ],
         );

@@ -103,7 +103,7 @@ Scaffold MobileRegister(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    'Create account',
+                    'Crear cuenta',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
@@ -114,7 +114,7 @@ Scaffold MobileRegister(BuildContext context) {
                   TextFormField(
                     controller: txtUsernCont,
                     decoration: const InputDecoration(
-                      labelText: 'Username',
+                      labelText: 'Nombre de usuario',
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {
@@ -145,7 +145,7 @@ Scaffold MobileRegister(BuildContext context) {
                     controller: txtPassCont,
                     obscureText: true,
                     decoration: const InputDecoration(
-                      labelText: 'Password',
+                      labelText: 'Contraseña',
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {
@@ -166,7 +166,7 @@ Scaffold MobileRegister(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Have an account? ',
+                        '¿Ya tienes cuenta? ',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -177,7 +177,7 @@ Scaffold MobileRegister(BuildContext context) {
                           Navigator.pop(context);
                         },
                         child: const Text(
-                          'Signin',
+                          'Inicia sesión',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.orangeAccent,
@@ -234,14 +234,14 @@ Scaffold LandscapeRegister(BuildContext context) {
                 borderRadius: BorderRadius.circular(15),
               ),
               margin: const EdgeInsets.symmetric(horizontal: 10),
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(5, 0, 5, 65),
               child: Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Create account',
+                      'Crear cuenta',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
@@ -252,7 +252,7 @@ Scaffold LandscapeRegister(BuildContext context) {
                     TextFormField(
                       controller: txtUsernCont,
                       decoration: const InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Nombre de usuario',
                         border: OutlineInputBorder(),
                       ),
                       validator: (value) {
@@ -283,7 +283,7 @@ Scaffold LandscapeRegister(BuildContext context) {
                       controller: txtPassCont,
                       obscureText: true,
                       decoration: const InputDecoration(
-                        labelText: 'Password',
+                        labelText: 'Contraseña',
                         border: OutlineInputBorder(),
                       ),
                       validator: (value) {
@@ -315,7 +315,7 @@ Scaffold LandscapeRegister(BuildContext context) {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Have an account? ',
+                            '¿Ya tienes cuenta? ',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey,
@@ -326,7 +326,7 @@ Scaffold LandscapeRegister(BuildContext context) {
                               Navigator.pop(context);
                             },
                             child: const Text(
-                              'Signin',
+                              'Inicia sesión',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.orangeAccent,
@@ -355,7 +355,7 @@ Scaffold LandscapeRegister(BuildContext context) {
         onPressed: () {
           _submitForm();
         },
-        text: 'Signup',
+        text: 'Registrar',
         backgroundColor: Colors.orangeAccent,
         fontSize: 13,
         borderRadius: 30.0,
@@ -406,7 +406,7 @@ Scaffold LandscapeRegister(BuildContext context) {
             }
           });
         },
-        text: 'Continue with Facebook',
+        text: 'Continuar con Facebook',
         fontSize: 12,
         borderRadius: 30.0,
       ),
@@ -456,7 +456,7 @@ Scaffold LandscapeRegister(BuildContext context) {
             }
           });
         },
-        text: 'Continue with Google',
+        text: 'Continuar con Google',
         fontSize: 12,
         borderRadius: 30.0,
       ),

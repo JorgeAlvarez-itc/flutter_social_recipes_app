@@ -53,7 +53,7 @@ class StartMobile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'DELIVERED',
+                  'FÁCIL',
                   style: TextStyle(
                     fontSize: 56,
                     color: Colors.white,
@@ -68,7 +68,22 @@ class StartMobile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'FAST FOOD',
+                  'COMIDA RÁPIDA',
+                  style: TextStyle(
+                    fontSize: 45,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black.withOpacity(0.6),
+                        offset: Offset(2.0, 2.0),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  'A TU',
                   style: TextStyle(
                     fontSize: 56,
                     color: Colors.white,
@@ -83,24 +98,9 @@ class StartMobile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'TO YOUR',
+                  'MESA',
                   style: TextStyle(
-                    fontSize: 56,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.black.withOpacity(0.6),
-                        offset: Offset(2.0, 2.0),
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  'RECIPES',
-                  style: TextStyle(
-                    fontSize: 56,
+                    fontSize: 45,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     shadows: [
@@ -131,7 +131,7 @@ class StartMobile extends StatelessWidget {
                         Navigator.pushNamed(context, '/login');
                       },
                       child: Text(
-                        'Login',
+                        'Iniciar sesión',
                         style: TextStyle(fontSize: 15),
                       ),
                       style: ElevatedButton.styleFrom(
@@ -156,7 +156,7 @@ class StartMobile extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, '/register');
                       },
-                      child: Text('Register your account'),
+                      child: Text('Registrar ahora!'),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
                         padding: EdgeInsets.symmetric(
@@ -203,7 +203,7 @@ class StartDesktop extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'DELIVERED',
+                    'FÁCIL',
                     style: TextStyle(
                       fontSize: 56,
                       color: Color.fromARGB(255, 65, 65, 65),
@@ -218,7 +218,7 @@ class StartDesktop extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'FAST FOOD',
+                    'COMIDA RÁPIDA',
                     style: TextStyle(
                       fontSize: 56,
                       color: Colors.orangeAccent,
@@ -233,7 +233,7 @@ class StartDesktop extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'TO YOUR',
+                    'A TU',
                     style: TextStyle(
                       fontSize: 45,
                       color: Color.fromARGB(250, 78, 78, 78),
@@ -248,7 +248,7 @@ class StartDesktop extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'RECIPES',
+                    'MESA',
                     style: TextStyle(
                       fontSize: 50,
                       color: Colors.orangeAccent,
@@ -278,7 +278,7 @@ class StartDesktop extends StatelessWidget {
                                 Navigator.pushNamed(context, '/login');
                               },
                               child: Text(
-                                'Login',
+                                'Iniciar sesión',
                                 style: TextStyle(fontSize: 15),
                               ),
                               style: ElevatedButton.styleFrom(
@@ -303,7 +303,7 @@ class StartDesktop extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pushNamed(context, '/register');
                               },
-                              child: Text('Register your account'),
+                              child: Text('Registrar ahora!'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: EdgeInsets.symmetric(
@@ -354,7 +354,7 @@ class StartLandscape extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'DELIVERED',
+                    'FÁCIL',
                     style: TextStyle(
                       fontSize: 46,
                       color: Color.fromARGB(255, 65, 65, 65),
@@ -369,9 +369,9 @@ class StartLandscape extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'FAST FOOD',
+                    'COMIDA RÁPIDA',
                     style: TextStyle(
-                      fontSize: 46,
+                      fontSize: 35,
                       color: Colors.orangeAccent,
                       fontWeight: FontWeight.bold,
                       shadows: [
@@ -384,7 +384,7 @@ class StartLandscape extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'TO YOUR',
+                    'A TU',
                     style: TextStyle(
                       fontSize: 35,
                       color: Color.fromARGB(250, 78, 78, 78),
@@ -399,7 +399,7 @@ class StartLandscape extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'RECIPES',
+                    'MESA',
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.orangeAccent,
@@ -429,7 +429,7 @@ class StartLandscape extends StatelessWidget {
                                 Navigator.pushNamed(context, '/login');
                               },
                               child: Text(
-                                'Login',
+                                'Iniciar sesión',
                                 style: TextStyle(fontSize: 15),
                               ),
                               style: ElevatedButton.styleFrom(
@@ -454,7 +454,7 @@ class StartLandscape extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pushNamed(context, '/register');
                               },
-                              child: Text('Register your account'),
+                              child: Text('Registrar ahora!'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: EdgeInsets.symmetric(

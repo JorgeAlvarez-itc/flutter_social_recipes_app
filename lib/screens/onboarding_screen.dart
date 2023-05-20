@@ -98,9 +98,9 @@ class OnBoardingMobile extends StatelessWidget {
           titleWidget: AnimatedTextKit(
             animatedTexts: [
               TyperAnimatedText(
-                'Complete Recipe',
+                'Recetas Fáciles al Instante',
                 textStyle: TextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -108,7 +108,7 @@ class OnBoardingMobile extends StatelessWidget {
             isRepeatingAnimation: true,
           ),
           body:
-              "Best apps for see and follow all recipes and more than 200++ around the world",
+              "Inspírate con recetas simples para tus comidas diarias",
           image: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -126,9 +126,9 @@ class OnBoardingMobile extends StatelessWidget {
           titleWidget: AnimatedTextKit(
             animatedTexts: [
               TyperAnimatedText(
-                'Recipes videos',
+                'Favoritos Personalizados',
                 textStyle: TextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -136,7 +136,7 @@ class OnBoardingMobile extends StatelessWidget {
             isRepeatingAnimation: true,
           ),
           body:
-              "Watch and follow step by step recipes from best videos recipes",
+              "Guarda tus recetas preferidas y accede a ellas en cualquier momento",
           image: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -154,9 +154,9 @@ class OnBoardingMobile extends StatelessWidget {
           titleWidget: AnimatedTextKit(
             animatedTexts: [
               TyperAnimatedText(
-                'Easy step by step',
+                'Explora y Descubre',
                 textStyle: TextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -164,7 +164,7 @@ class OnBoardingMobile extends StatelessWidget {
             isRepeatingAnimation: true,
           ),
           body:
-              'Best apps for see and follow all recipes and more than 200++ around the world',
+              'Encuentra nuevas recetas basadas en tus gustos y preferencias',
           image: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -191,17 +191,17 @@ class OnBoardingMobile extends StatelessWidget {
         color: Colors.orangeAccent,
       ),
       skip: Text(
-        'Skip',
+        'Saltar',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.orangeAccent),
       ),
       done: Text(
-        'Start',
+        'Comencemos',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.orangeAccent),
       ),
       dotsDecorator: DotsDecorator(
@@ -243,9 +243,9 @@ class OnBoardingTest extends StatelessWidget {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                'Complete Recipe',
+                                'Recetas Fáciles al Instante',
                                 textStyle: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -253,7 +253,7 @@ class OnBoardingTest extends StatelessWidget {
                             isRepeatingAnimation: true,
                           ),
                           Text(
-                            'Best apps for see and follow all recipes and more than 200++ around the world',
+                            'Inspírate con recetas simples para tus comidas diarias',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -314,9 +314,9 @@ class OnBoardingTest extends StatelessWidget {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                'Recipes videos',
+                                'Favoritos Personalizados',
                                 textStyle: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -324,7 +324,7 @@ class OnBoardingTest extends StatelessWidget {
                             isRepeatingAnimation: true,
                           ),
                           Text(
-                            'Watch the best videos of the most healthy meals',
+                            'Guarda tus recetas preferidas y accede a ellas en cualquier momento',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -385,9 +385,9 @@ class OnBoardingTest extends StatelessWidget {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                'Easy step by step',
+                                'Explora y Descubre',
                                 textStyle: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -395,7 +395,7 @@ class OnBoardingTest extends StatelessWidget {
                             isRepeatingAnimation: true,
                           ),
                           Text(
-                            'Follow all the steps and do the best meals always',
+                            'Encuentra nuevas recetas basadas en tus gustos y preferencias',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -455,17 +455,17 @@ class OnBoardingTest extends StatelessWidget {
         color: Colors.orangeAccent,
       ),
       skip: Text(
-        'Skip',
+        'Saltar',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.orangeAccent),
       ),
       done: Text(
-        'Start',
+        'Comencemos',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.orangeAccent),
       ),
       dotsDecorator: DotsDecorator(
@@ -507,9 +507,9 @@ class OnBoardingTablet extends StatelessWidget {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                'Complete Recipe',
+                                'Recetas Fáciles al Instante',
                                 textStyle: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -517,7 +517,7 @@ class OnBoardingTablet extends StatelessWidget {
                             isRepeatingAnimation: true,
                           ),
                           Text(
-                            'Best apps for see and follow all recipes and more than 200++ around the world',
+                            'Inspírate con recetas simples para tus comidas diarias',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -578,9 +578,9 @@ class OnBoardingTablet extends StatelessWidget {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                'Recipes videos',
+                                'Favoritos Personalizados',
                                 textStyle: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -588,7 +588,7 @@ class OnBoardingTablet extends StatelessWidget {
                             isRepeatingAnimation: true,
                           ),
                           Text(
-                            'Watch the best videos of the most healthy meals',
+                            'Guarda tus recetas preferidas y accede a ellas en cualquier momento',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -649,9 +649,9 @@ class OnBoardingTablet extends StatelessWidget {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                'Easy step by step',
+                                'Explora y Descubre',
                                 textStyle: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -659,7 +659,7 @@ class OnBoardingTablet extends StatelessWidget {
                             isRepeatingAnimation: true,
                           ),
                           Text(
-                            'Follow all the steps and do the best meals always',
+                            'Encuentra nuevas recetas basadas en tus gustos y preferencias',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -719,17 +719,17 @@ class OnBoardingTablet extends StatelessWidget {
         color: Colors.orangeAccent,
       ),
       skip: Text(
-        'Skip',
+        'Saltar',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.orangeAccent),
       ),
       done: Text(
-        'Start',
+        'Comencemos',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.orangeAccent),
       ),
       dotsDecorator: DotsDecorator(
