@@ -9,7 +9,11 @@ class DiscoverPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Responsive(mobile: DiscoverMobile(), tablet: DiscoverLandscape(), desktop: DiscoverLandscape()),
+      child: Responsive(
+        mobile: DiscoverMobile(), 
+        tablet: DiscoverLandscape(), 
+        desktop: DiscoverLandscape()
+      ),
     );
   }
 }
@@ -41,15 +45,12 @@ class DiscoverMobile extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 3,
-        controller: ScrollController(initialScrollOffset: 2),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CardRecipeWidget(),
+      body: StreamBuilder(
+        stream: stream,
+        initialData: initialData,
+        builder: (context, snapshot) {
+          return Container(
+            child: child,
           );
         },
       ),
