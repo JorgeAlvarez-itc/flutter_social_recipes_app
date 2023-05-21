@@ -41,7 +41,7 @@ class DiscoverMobile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Discover',
+          'Descubrir',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -49,13 +49,6 @@ class DiscoverMobile extends StatelessWidget {
           ),
           textAlign: TextAlign.start,
         ),
-        actions: [
-          IconButton(
-            color: Colors.orangeAccent,
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: StreamBuilder(
         stream: _dbSuggest.getSuggestCategories(userCredential!.user!.uid),
@@ -111,7 +104,7 @@ class DiscoverLandscape extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Discover',
+          'Descubrir',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -119,13 +112,6 @@ class DiscoverLandscape extends StatelessWidget {
           ),
           textAlign: TextAlign.start,
         ),
-        actions: [
-          IconButton(
-            color: Colors.orangeAccent,
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: StreamBuilder(
         stream: _dbSuggest.getSuggestCategories(userCredential!.user!.uid),

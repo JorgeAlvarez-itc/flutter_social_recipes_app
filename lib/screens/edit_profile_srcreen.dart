@@ -50,7 +50,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Edit profile',
+          'Editar perfil',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -147,101 +147,106 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 SizedBox(height: 20.0),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: userCredential.user!.providerData[0].displayName
-                              .toString()
-                              .toUpperCase(),
-                          enabled: false,
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: userCredential.user!.providerData[0].email
-                              .toString()
-                              .toUpperCase(),
-                          enabled: false,
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (isEmailAccount) {
-                            if (_controller.isImage.value != null) {
-                              File? aux = _controller.isImage.value;
-                              await _storage
-                                  .uploadFile(
-                                      aux!, userCredential.user!.uid.toString())
-                                  .then((value) {
-                                if (value != null) {
-                                  authMethods
-                                      .updateProfilePhoto(
-                                          usuario: userCredential, url: value, pass: password.toString())
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                              hintText: userCredential.user!.providerData[0].displayName
+                                  .toString()
+                                  .toUpperCase(),
+                              enabled: false,
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              hintText: userCredential.user!.providerData[0].email
+                                  .toString()
+                                  .toUpperCase(),
+                              enabled: false,
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          SizedBox(height: 20.0),
+                          ElevatedButton(
+                            onPressed: () async {
+                              if (isEmailAccount) {
+                                if (_controller.isImage.value != null) {
+                                  File? aux = _controller.isImage.value;
+                                  await _storage
+                                      .uploadFile(
+                                          aux!, userCredential.user!.uid.toString())
                                       .then((value) {
                                     if (value != null) {
-                                      if (value.user!.photoURL !=
-                                          userCredential.user!.photoURL) {
-                                        AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.success,
-                                            animType: AnimType.bottomSlide,
-                                            title: "Success",
-                                            desc:
-                                                "Profile photo update successfuly",
-                                            btnOkColor: Colors.orangeAccent,
-                                            btnOkOnPress: () {
-                                              value.user!.reload().then((valor) {
-                                                Navigator.pushNamed(
-                                                    context, '/home',
-                                                    arguments: {
-                                                      'user': value,
-                                                      'isEmailAccount': true,
-                                                      'password':password.toString(),
-                                                    });
-                                              });
-                                            }).show();
-                                      }
-                                      else{
-                                        print(value.user!.photoURL!=userCredential.user!.photoURL);
-                                      }
+                                      authMethods
+                                          .updateProfilePhoto(
+                                              usuario: userCredential, url: value, pass: password.toString())
+                                          .then((value) {
+                                        if (value != null) {
+                                          if (value.user!.photoURL !=
+                                              userCredential.user!.photoURL) {
+                                            AwesomeDialog(
+                                                context: context,
+                                                dialogType: DialogType.success,
+                                                animType: AnimType.bottomSlide,
+                                                title: "Success",
+                                                desc:
+                                                    "Profile photo update successfuly",
+                                                btnOkColor: Colors.orangeAccent,
+                                                btnOkOnPress: () {
+                                                  value.user!.reload().then((valor) {
+                                                    Navigator.pushNamed(
+                                                        context, '/home',
+                                                        arguments: {
+                                                          'user': value,
+                                                          'isEmailAccount': true,
+                                                          'password':password.toString(),
+                                                        });
+                                                  });
+                                                }).show();
+                                          }
+                                          else{
+                                            print(value.user!.photoURL!=userCredential.user!.photoURL);
+                                          }
+                                        }
+                                      });
+                                    } else {
+                                      // handle the case where the upload fails
                                     }
                                   });
-                                } else {
-                                  // handle the case where the upload fails
                                 }
-                              });
-                            }
-                          } else {
-                            AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.error,
-                                    animType: AnimType.leftSlide,
-                                    title: "Error",
-                                    desc:
-                                        "You don't have permissions to update please contact to support",
-                                    btnOkColor: Colors.orangeAccent,
-                                    btnOkOnPress: () {})
-                                .show();
-                          }
-                        },
-                        child: Text('Update profile'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orangeAccent,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 50.0,
-                            vertical: 15.0,
+                              } else {
+                                AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.error,
+                                        animType: AnimType.leftSlide,
+                                        title: "Error",
+                                        desc:
+                                            "You don't have permissions to update please contact to support",
+                                        btnOkColor: Colors.orangeAccent,
+                                        btnOkOnPress: () {})
+                                    .show();
+                              }
+                            },
+                            child: Text('Update profile'),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.orangeAccent,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 50.0,
+                                vertical: 15.0,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],

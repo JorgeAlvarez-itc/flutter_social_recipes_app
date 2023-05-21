@@ -1,4 +1,5 @@
 import 'package:blur/blur.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recetas/models/favs_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,7 +94,7 @@ class DetailsRecipeScreen extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  child: Image.network(
+                  child: CachedNetworkImage(imageUrl: 
                     recipe?.foto ?? '',
                     //width: double.infinity,
                     fit: BoxFit.fill,
@@ -103,7 +104,7 @@ class DetailsRecipeScreen extends StatelessWidget {
                   ).blurred(blur: 5, blurColor: Colors.black),
                 ),
                 Center(
-                  child: Image.network(
+                  child: CachedNetworkImage(imageUrl: 
                     recipe?.foto ?? '',
                     //width: double.infinity,
                     fit: BoxFit.cover,
