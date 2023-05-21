@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Themes{
   final lightTheme=ThemeData().copyWith(
     primaryColor: Colors.orangeAccent,
+    backgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       brightness: Brightness.light,
@@ -14,8 +15,18 @@ class Themes{
       )
     )
   );
-  final darkTheme=ThemeData().copyWith(
-    primaryColor: Colors.deepOrangeAccent,
+  final darkTheme=ThemeData.dark().copyWith(
+    primaryColor: Colors.black,
+    backgroundColor: Colors.black,
+    textTheme: TextTheme(
+      headline1: TextStyle(
+        color: Colors.white
+      ),
+      
+    ),
+    cardTheme: CardTheme(
+      color: Colors.black
+    ),
     appBarTheme: const AppBarTheme(
       brightness: Brightness.dark,
       backgroundColor: Colors.black12,

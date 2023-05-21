@@ -51,7 +51,6 @@ class CardRecipeWidget extends StatelessWidget {
                     Text(
                       recipeModel!.tiempo!,
                       style: TextStyle(
-                        color: Colors.grey,
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -62,7 +61,6 @@ class CardRecipeWidget extends StatelessWidget {
                     Text(
                       recipeModel!.calorias!.toString(),
                       style: TextStyle(
-                        color: Colors.grey,
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -78,7 +76,6 @@ class CardRecipeWidget extends StatelessWidget {
             child: Text(
               recipeModel!.nombre!,
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Montserrat',

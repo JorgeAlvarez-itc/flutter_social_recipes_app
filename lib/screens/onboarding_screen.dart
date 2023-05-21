@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recetas/responsive/responsive.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:recetas/responsive/responsive.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -91,7 +91,6 @@ class OnBoardingMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      globalBackgroundColor: Colors.white,
       scrollPhysics: BouncingScrollPhysics(),
       pages: [
         PageViewModel(
@@ -226,7 +225,6 @@ class OnBoardingTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      globalBackgroundColor: Colors.white,
       scrollPhysics: BouncingScrollPhysics(),
       pages: [
         PageViewModel(
@@ -490,7 +488,6 @@ class OnBoardingTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      globalBackgroundColor: Colors.white,
       scrollPhysics: BouncingScrollPhysics(),
       pages: [
         PageViewModel(

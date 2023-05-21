@@ -1,8 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:recetas/firebase/firebase_auth.dart';
 import 'package:recetas/responsive/responsive.dart';
+import 'package:recetas/firebase/firebase_auth.dart';
 import 'package:recetas/widgets/awesomeDialog_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -92,7 +92,6 @@ Scaffold MobileRegister(BuildContext context) {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white70,
               borderRadius: BorderRadius.circular(20),
             ),
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -107,7 +106,6 @@ Scaffold MobileRegister(BuildContext context) {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
-                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(height: 20),
