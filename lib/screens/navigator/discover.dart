@@ -70,7 +70,7 @@ class DiscoverMobile extends StatelessWidget {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: recetas.data!.length,
                   controller: ScrollController(initialScrollOffset: 2),
                   itemBuilder: (context, index) {
                     return Padding(
@@ -140,7 +140,7 @@ class DiscoverLandscape extends StatelessWidget {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: recetas.data!.length,
                   controller: ScrollController(initialScrollOffset: 2),
                   itemBuilder: (context, index) {
                     return Padding(
