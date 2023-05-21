@@ -75,8 +75,17 @@ class DiscoverMobile extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child:
-                          CardRecipeWidget(recipeModel: recetas.data![index]),
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/details',
+                                arguments: {
+                                  'recipe': recetas.data![index],
+                                  'id': recetas.data![index].id,
+                                  'user': userCredential,
+                                });
+                          },
+                          child: CardRecipeWidget(
+                              recipeModel: recetas.data![index])),
                     );
                   },
                 );
@@ -138,8 +147,17 @@ class DiscoverLandscape extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                         width: 300, // Ancho deseado para la tarjeta
-                        child:
-                            CardRecipeWidget(recipeModel: recetas.data![index]),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/details',
+                                  arguments: {
+                                    'recipe': recetas.data![index],
+                                    'id': recetas.data![index].id,
+                                    'user': userCredential,
+                                  });
+                            },
+                            child: CardRecipeWidget(
+                                recipeModel: recetas.data![index])),
                       ),
                     );
                   },
