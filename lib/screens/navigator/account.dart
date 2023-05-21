@@ -1,14 +1,16 @@
-import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:recetas/settings/theme_settings.dart';
 import 'package:recetas/widgets/awesomeDialog_widget.dart';
+import 'package:day_night_switcher/day_night_switcher.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     String? password;
+    ThemeSettings themeSettings= ThemeSettings();
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isEmailAccount = args['isEmailAccount'] ?? false;
@@ -17,7 +19,6 @@ class AccountScreen extends StatelessWidget {
       password = args['password'] as String;
     }
     Awesome awesome = Awesome();
-    bool _isDarkModeEnabled = false;
     return Scaffold(
       body: Stack(
         children: [
@@ -81,7 +82,7 @@ class AccountScreen extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color:themeSettings.isSaveDarkMode()? Colors.black: Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
@@ -157,9 +158,9 @@ class AccountScreen extends StatelessWidget {
                               children: [
                                 Text('Tema: ',style: TextStyle(fontSize: 15)),
                                 DayNightSwitcher(
-                                  isDarkModeEnabled: _isDarkModeEnabled,
-                                  onStateChanged: (isDarkModeEnabled) {
-                                    
+                                  isDarkModeEnabled: themeSettings.isSaveDarkMode(),
+                                  onStateChanged: (isDarkModeEnabled) async{
+                                    await themeSettings.changeThemeMode(isDarkModeEnabled);
                                   },
                                 ),
                               ],

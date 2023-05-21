@@ -9,6 +9,7 @@ import 'package:recetas/firebase/firebase_db.dart';
 import 'package:recetas/models/category_model.dart';
 import 'package:recetas/widgets/recipe_widget.dart';
 import 'package:recetas/widgets/loading_widget.dart';
+import 'package:recetas/settings/theme_settings.dart';
 import 'package:recetas/widgets/categories_widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -144,7 +145,6 @@ class HomePage extends GetView<HomeController> {
             ],
           ),
           Container(
-            color: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,7 +194,6 @@ class HomePage extends GetView<HomeController> {
           ),
           SizedBox(height: 16),
           Container(
-            color: Colors.white,
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

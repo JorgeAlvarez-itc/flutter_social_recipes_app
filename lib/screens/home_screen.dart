@@ -33,7 +33,8 @@ class PrincipalScreen extends StatelessWidget {
               .currentIndex.value, // Observa el valor actual del índice
           onTap: _controller
               .changeTabIndex,
-          selectedLabelStyle: TextStyle(color: Colors.black),
+          fixedColor: Colors.orangeAccent,
+          selectedLabelStyle: TextStyle(color: Colors.white),
           unselectedLabelStyle: TextStyle(color: Colors.grey),// Cuando se toque un item, cambia el índice actual
           items: [
             BottomNavigationBarItem(
@@ -42,7 +43,7 @@ class PrincipalScreen extends StatelessWidget {
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
-              label: 'Home',
+              label: 'Inicio',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.explore,
@@ -50,7 +51,7 @@ class PrincipalScreen extends StatelessWidget {
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
-              label: 'Discover',
+              label: 'Descubre',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite,
@@ -58,7 +59,7 @@ class PrincipalScreen extends StatelessWidget {
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
-              label: 'Favorite',
+              label: 'Favoritos',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person,
@@ -66,7 +67,7 @@ class PrincipalScreen extends StatelessWidget {
                       ? Colors.orangeAccent
                       : Colors
                           .grey), // Cambia el color del ícono según el índice actual
-              label: 'User',
+              label: 'Cuenta',
             ),
           ],
         ),

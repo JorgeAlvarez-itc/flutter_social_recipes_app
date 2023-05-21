@@ -56,6 +56,7 @@ dependencies:
   rating_dialog: ^2.0.4
   firebase_messaging: ^14.6.0
   flutter_local_notifications: ^14.1.0
+  get_storage: ^2.1.1
   day_night_switcher: ^0.2.0+1
 
 
