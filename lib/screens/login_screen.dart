@@ -3,9 +3,9 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:recetas/responsive/responsive.dart';
 import 'package:recetas/firebase/firebase_auth.dart';
 import 'package:recetas/controllers/home_controller.dart';
-import 'package:recetas/responsive/responsive.dart';
 import 'package:recetas/widgets/awesomeDialog_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
