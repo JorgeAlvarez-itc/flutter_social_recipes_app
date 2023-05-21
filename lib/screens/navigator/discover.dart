@@ -39,15 +39,20 @@ class DiscoverMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        centerTitle: true,
         title: const Text(
           'Descubrir',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
             fontSize: 20,
           ),
           textAlign: TextAlign.start,
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: StreamBuilder(
@@ -102,15 +107,20 @@ class DiscoverLandscape extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        centerTitle: true,
         title: const Text(
           'Descubrir',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
             fontSize: 20,
           ),
           textAlign: TextAlign.start,
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: StreamBuilder(

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:recetas/responsive/responsive.dart';
 import 'package:recetas/firebase/firebase_auth.dart';
+import 'package:recetas/settings/account_setting.dart';
 import 'package:recetas/controllers/home_controller.dart';
 import 'package:recetas/widgets/awesomeDialog_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController? txtPassCont = TextEditingController();
   Awesome awesome = Awesome();
   FirebaseAuthMethods authMethods = FirebaseAuthMethods();
-
+  AccountSettings accountSettings = AccountSettings();
   final _formKey = GlobalKey<FormState>();
 
   void _submitForm() {
@@ -36,11 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
         if (value != null) {
           User aux = value.user!;
           if (aux.emailVerified) {
+            accountSettings.saveCredentials(
+                true, value, passEncrypt.toString());
             Navigator.pushNamed(context, '/home', arguments: {
               'user': value,
               'isEmailAccount': true,
               'password': passEncrypt.toString(),
             });
+            
           } else {
             AwesomeDialog(
               context: context,
@@ -218,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Expanded(
               child: SizedBox(
-                 // Ajusta el factor de escala según tus necesidades
+                // Ajusta el factor de escala según tus necesidades
                 child: Image.network(
                   'https://images.pexels.com/photos/6605302/pexels-photo-6605302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                   alignment: Alignment.centerLeft,
@@ -232,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.white12,
                 ),
-                margin: EdgeInsets.only(right: 15,left: 15,bottom: 130),
+                margin: EdgeInsets.only(right: 15, left: 15, bottom: 130),
                 //padding: EdgeInsets.all(16),
                 child: Form(
                   key: _formKey,
@@ -285,10 +289,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   const SizedBox(height: 5),
                   _buildGeneralbtn(context),
                   const SizedBox(height: 10),
@@ -332,9 +336,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                            ],
-                          ),
-                ))
+                ],
+              ),
+            ))
             //const SizedBox(height: 32),
           ],
         ),
@@ -365,10 +369,12 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           authMethods.signInWithFacebook().then((value) {
             if (value != null) {
+              accountSettings.saveCredentials(false, value, null);
               Navigator.pushNamed(context, '/home', arguments: {
                 'user': value,
                 'isEmailAccount': false,
               });
+             
             } else {}
           });
         },
@@ -387,6 +393,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           authMethods.signInWithGoogle().then((value) {
             if (value != null) {
+              accountSettings.saveCredentials(false, value, null);
               Navigator.pushNamed(context, '/home', arguments: {
                 'user': value,
                 'isEmailAccount': false,

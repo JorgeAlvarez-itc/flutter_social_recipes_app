@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Themes{
-  final lightTheme=ThemeData().copyWith(
+  final lightTheme=ThemeData.light().copyWith(
     primaryColor: Colors.orangeAccent,
     backgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       brightness: Brightness.light,
       centerTitle: true,
-      textTheme: TextTheme(
-        headline1: TextStyle(
-          color: Colors.black
-        )
+      titleTextStyle: TextStyle(color: Colors.black),
+      actionsIconTheme: IconThemeData(
+        color: Colors.black
+      ),
+      iconTheme: IconThemeData(
+        color: Colors.black
       )
     )
   );

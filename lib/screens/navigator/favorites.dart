@@ -19,12 +19,10 @@ class FavScreen extends StatelessWidget {
     print(args);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           'Recetas favoritas',
           style: TextStyle(
-            color: Colors.black,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),

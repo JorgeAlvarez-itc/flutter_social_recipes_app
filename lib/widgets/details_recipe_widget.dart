@@ -1,5 +1,4 @@
 import 'package:blur/blur.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recetas/models/favs_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +8,7 @@ import 'package:recetas/firebase/firebase_db.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:recetas/responsive/responsive.dart';
 import 'package:recetas/widgets/loading_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DetailsRecipeScreen extends StatelessWidget {
   RecipeModel? recipe;
@@ -65,9 +65,9 @@ class DetailsRecipeScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(recipe!.nombre!,
-            textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+            textAlign: TextAlign.center),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back,),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -149,7 +149,7 @@ class DetailsRecipeScreen extends StatelessWidget {
                   //height: 525,
                   padding: const EdgeInsets.all(25),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: SingleChildScrollView(

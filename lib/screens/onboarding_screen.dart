@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/responsive/responsive.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key});
-
+  OnBoardingScreen({super.key, this.user, this.isEmailAccount, this.pass});
+  UserCredential? user;
+  bool? isEmailAccount;
+  String? pass;
   @override
   Widget build(BuildContext context) {
+
     return Container(
       child: Scaffold(
         body: Responsive(
@@ -106,8 +110,7 @@ class OnBoardingMobile extends StatelessWidget {
             ],
             isRepeatingAnimation: true,
           ),
-          body:
-              "Inspírate con recetas simples para tus comidas diarias",
+          body: "Inspírate con recetas simples para tus comidas diarias",
           image: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -162,8 +165,7 @@ class OnBoardingMobile extends StatelessWidget {
             ],
             isRepeatingAnimation: true,
           ),
-          body:
-              'Encuentra nuevas recetas basadas en tus gustos y preferencias',
+          body: 'Encuentra nuevas recetas basadas en tus gustos y preferencias',
           image: Container(
             decoration: BoxDecoration(
               image: DecorationImage(

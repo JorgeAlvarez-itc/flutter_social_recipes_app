@@ -16,7 +16,7 @@ import 'package:recetas/widgets/details_recipe_widget.dart';
 
 Map<String,WidgetBuilder>getApplicationRoutes(){
   return <String,WidgetBuilder>{
-    '/onboarding':(BuildContext context) =>const OnBoardingScreen(),
+    '/onboarding':(BuildContext context) =>OnBoardingScreen(),
     '/start':(BuildContext context) =>const StartScreen(),
     '/login':(BuildContext context) =>const LoginScreen(),
     '/register':(BuildContext context) =>const RegisterScreen(),
