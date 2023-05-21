@@ -1,3 +1,4 @@
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -5,10 +6,8 @@ import 'package:recetas/widgets/awesomeDialog_widget.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    bool _isDarkModeEnabled = false;
     String? password;
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -18,6 +17,7 @@ class AccountScreen extends StatelessWidget {
       password = args['password'] as String;
     }
     Awesome awesome = Awesome();
+    bool _isDarkModeEnabled = false;
     return Scaffold(
       body: Stack(
         children: [
@@ -147,29 +147,23 @@ class AccountScreen extends StatelessWidget {
                           },
                         ),
                         Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                _isDarkModeEnabled ? 'Modo oscuro' : 'Modo claro',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              Switch(
-                                value: _isDarkModeEnabled,
-                                onChanged: (value) {
-                                  
-                                  // Aquí puedes realizar la lógica para cambiar el tema de la aplicación
-                                },
-                              ),
-                              Icon(
-                                _isDarkModeEnabled
-                                    ? Icons.nightlight_round
-                                    : Icons.wb_sunny,
-                                size: 24,
-                              ),
-                            ],
+                        SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 35),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Tema: ',style: TextStyle(fontSize: 15)),
+                                DayNightSwitcher(
+                                  isDarkModeEnabled: _isDarkModeEnabled,
+                                  onStateChanged: (isDarkModeEnabled) {
+                                    
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
