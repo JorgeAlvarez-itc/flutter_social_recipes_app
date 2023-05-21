@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/home_controller.dart';
@@ -27,7 +28,7 @@ class HomePage extends GetView<HomeController> {
         children: [
           Stack(
             children: [
-              Image.network(
+              CachedNetworkImage(imageUrl: 
                 'https://images.pexels.com/photos/616838/pexels-photo-616838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 width: double.infinity,
                 height: 250,
@@ -43,7 +44,7 @@ class HomePage extends GetView<HomeController> {
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'Hello',
+                            'Hola!',
                             style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.bold,
@@ -96,7 +97,7 @@ class HomePage extends GetView<HomeController> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'SPECIAL RECIPE TODAY',
+                              'Receta especial hoy:',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -124,7 +125,7 @@ class HomePage extends GetView<HomeController> {
                                           'user': userCredential,
                                         });
                                   },
-                                  child: Image.network(
+                                  child: CachedNetworkImage(imageUrl: 
                                     snapshot.data!.foto!,
                                     width: 100,
                                     height: 100,
@@ -149,7 +150,7 @@ class HomePage extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Categories',
+                  'Categorias',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

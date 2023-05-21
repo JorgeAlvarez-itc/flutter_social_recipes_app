@@ -93,7 +93,7 @@ class AccountScreen extends StatelessWidget {
                         SizedBox(height: 20),
                         ListTile(
                           leading: Icon(Icons.person),
-                          title: Text('Edit profile'),
+                          title: Text('Editar perfil'),
                           trailing: Icon(Icons.arrow_forward_ios),
                           onTap: () {
                             Navigator.pushNamed(context, '/edit', arguments: {
@@ -106,7 +106,7 @@ class AccountScreen extends StatelessWidget {
                         Divider(),
                         ListTile(
                           leading: Icon(Icons.microwave_outlined),
-                          title: Text('My recipes'),
+                          title: Text('Mis recetas'),
                           trailing: Icon(Icons.arrow_forward_ios),
                           onTap: () {
                             Navigator.pushNamed(context, '/own', arguments: {
@@ -128,7 +128,7 @@ class AccountScreen extends StatelessWidget {
                         Divider(),
                         ListTile(
                           leading: Icon(Icons.logout),
-                          title: Text('Logout'),
+                          title: Text('Salir'),
                           trailing: Icon(Icons.arrow_forward_ios),
                           onTap: () {
                             awesome
