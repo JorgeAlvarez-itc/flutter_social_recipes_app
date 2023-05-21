@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recetas/models/recipe_model.dart';
@@ -34,7 +35,7 @@ class RecipeWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
+                      child: CachedNetworkImage(imageUrl: 
                         recipeModel!.foto!,
                         fit: BoxFit.cover,
                         height: 150,

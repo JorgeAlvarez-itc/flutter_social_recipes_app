@@ -23,7 +23,7 @@ class ListOwnRecipes extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'My recipes',
+          'Mis recetas',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
