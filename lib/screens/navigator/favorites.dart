@@ -22,7 +22,7 @@ class FavScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Favorite Recipe',
+          'Recetas favoritas',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
