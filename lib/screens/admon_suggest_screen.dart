@@ -15,19 +15,13 @@ class AdmonSuggestScreen extends StatelessWidget {
     final UserCredential userCredential = args['user'] as UserCredential;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           'Selecciona las categorias que son de tu agrado',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
         ),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);

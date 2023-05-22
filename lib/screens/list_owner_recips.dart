@@ -17,22 +17,20 @@ class ListOwnRecipes extends StatelessWidget {
     DatabaseFirebase _dbReci = DatabaseFirebase(0);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back,),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           'Mis recetas',
           style: TextStyle(
-            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.add, color: Colors.black),
+            icon: Icon(Icons.add,),
             onPressed: () {
               Navigator.pushNamed(context, '/create', arguments: {
                 'user': userCredential,
